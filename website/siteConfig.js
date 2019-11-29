@@ -3,8 +3,8 @@ const siteConfig = {
   tagline: "RAD modules description.",
   ogImage: "img/undraw_online.svg",
   url: "https://thesoftwarehouse.github.io",
-  baseUrl: "/",
-  projectName: "rad-modules",
+  baseUrl: "/rad-modules-docs/",
+  projectName: "rad-modules-docs",
   organizationName: "TheSoftwareHouse",
 
   headerLinks: [
