@@ -1,0 +1,9 @@
+{
+  "docs": {
+    "Documentation": ["quickstart", "index"],
+    "Security service": ["security-configuration"],
+    "Mailer service": ["mailer-configuration"],
+    "Notifications service": ["notifications-configuration"],
+    "Scheduler service": ["scheduler-configuration"]
+  }
+}
