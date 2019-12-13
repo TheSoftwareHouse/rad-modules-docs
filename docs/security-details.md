@@ -123,8 +123,8 @@ ACCESS_TOKEN_SECRET:
 
 REFRESH_TOKEN_EXPIRATION:
 
-- **_Description_**: The variable specifies how long the refresh token will be available in seconds
-- **_Default_**: `600`
+- **_Description_**: The variable specifies how long the refresh token will be available in seconds **IMPORTANT!:** `REFRESH_TOKEN_EXPIRATION` should be greater than `ACCESS_TOKEN_EXPIRATION`
+- **_Default_**: `1200`
 
 REFRESH_TOKEN_SECRET:
 
