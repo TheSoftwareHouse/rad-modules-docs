@@ -159,7 +159,12 @@ OAUTH_ALLOWED_DOMAINS:
 REDIRECT_URI:
 
 - **_Description_**: The variable specifies the redirect URL for external OAuth provider
-- **_Default_**: `"http://lvh.me:50050/api/users/oauth-redirect"`
+- **_Default_**: `""`
+
+CREATE_USER_ACCOUNT_ON_OAUTH
+
+- **_Description_**: The variable specifies if a user witch is login via OAuth provider should have created an account in the DB after the login flow
+- **_Default_**: `false`
 
 INITIAL_USERS_DATA_JSON_PATH:
 
@@ -185,3 +190,68 @@ TIME_TO_ACTIVE_ACCOUNT_IN_DAYS:
 
 - **_Description_**: The variable specifies how long can activate the registered account (in days)
 - **_Default_**: `3`
+
+SUPER_ADMIN_USERNAME:
+
+- **_Description_**: The variable specifies super admin login (the user with has all rights)
+- **_Default_**:`"superadmin"`
+
+SUPER_ADMIN_PASSWORD:
+
+- **_Description_**: The variable specifies super admin password
+- **_Default_**:`"superadmin"`
+
+SUPER_ADMIN_ROLE
+
+- **_Description_**: The variable specifies super admin role
+- **_Default_**: `"ROLE_SUPERADMIN"`
+
+SUPER_ADMIN_ATTRIBUTES:
+
+- **_Description_**: The variable specifies an array of super admin attributes the admin has access every vere, but on the other hand, perhaps you would like to add some custom attributes for the super admin so here is the place
+- **_Default_**:`["ROLE_SUPERADMIN"]`
+
+ADMIN_PANEL_ADD_USER
+
+- **_Description_**: The variable specifies with police have access to add a new users
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_EDIT_USER
+
+- **_Description_**: The variable specifies with police have access to edit a users
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_DEACTIVATE_USER
+
+- **_Description_**: The variable specifies with police have access to deactivate a users
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_DELETE_USER
+
+- **_Description_**: The variable specifies with police have access to delete a users
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_RESET_PASSWORD
+
+- **_Description_**: The variable specifies with police have access to reset the password for a users
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_ADD_POLICIES
+
+- **_Description_**: The variable specifies with police have access to add new policies
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_REMOVE_POLICIES
+
+- **_Description_**: The variable specifies with police have access to remove policies
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_ADD_ATTRIBUTE_TO_USER
+
+- **_Description_**: The variable specifies with police have access to add police attributes for a user
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_REMOVE_ATTRIBUTE_TO_USER
+
+- **_Description_**: The variable specifies with police have access to remove police attributes from a user
+- **_Default_**: `"ADMIN_PANEL"`
