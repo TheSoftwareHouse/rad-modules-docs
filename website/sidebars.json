@@ -7,7 +7,11 @@
       "security-endpoints"
     ],
     "Mailer service": ["mailer-index", "mailer-details", "mailer-endpoints"],
-    "Notifications service": ["notifications-configuration"],
+    "Notifications service": [
+      "notifications-index",
+      "notifications-details",
+      "notifications-endpoints"
+    ],
     "Scheduler service": ["scheduler-configuration"]
   }
 }
