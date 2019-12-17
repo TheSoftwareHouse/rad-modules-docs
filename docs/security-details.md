@@ -18,7 +18,7 @@ We keep the image on our public [DockerHub](https://hub.docker.com/r/tshio/secur
 ```
   security:
     image: security-service:latest
-    command: [sh, -c, 'node-dev ./src/index.js']
+    command: api
     hostname: security
     environment:
       ACCESS_TOKEN_SECRET: secret1234
