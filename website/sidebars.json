@@ -1,7 +1,11 @@
 {
   "docs": {
     "Documentation": ["index"],
-    "Security service": ["security-index", "security-details"],
+    "Security service": [
+      "security-index",
+      "security-details",
+      "security-endpoints"
+    ],
     "Mailer service": ["mailer-configuration"],
     "Notifications service": ["notifications-configuration"],
     "Scheduler service": ["scheduler-configuration"]
