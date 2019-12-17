@@ -17,7 +17,7 @@ We keep the image on our public [DockerHub](https://hub.docker.com/r/tshio/secur
 
 ```
   security:
-    image: security-service:latest
+    image: tshio/security:latest
     command: api
     hostname: security
     environment:
@@ -89,7 +89,7 @@ policy.json schema:
 
 ```
 
-## Configuration setting that you can overwrite via enviremnt variables
+## Configuration setting that you can overwrite via environment variables
 
 RESET_PASSWORD_REGEX:
 

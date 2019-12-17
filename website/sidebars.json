@@ -6,7 +6,7 @@
       "security-details",
       "security-endpoints"
     ],
-    "Mailer service": ["mailer-configuration"],
+    "Mailer service": ["mailer-index", "mailer-details", "mailer-endpoints"],
     "Notifications service": ["notifications-configuration"],
     "Scheduler service": ["scheduler-configuration"]
   }
