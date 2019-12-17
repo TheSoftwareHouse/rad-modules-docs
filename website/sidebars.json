@@ -12,6 +12,10 @@
       "notifications-details",
       "notifications-endpoints"
     ],
-    "Scheduler service": ["scheduler-configuration"]
+    "Scheduler service": [
+      "scheduler-index",
+      "scheduler-details",
+      "scheduler-endpoints"
+    ]
   }
 }
