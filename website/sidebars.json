@@ -4,7 +4,8 @@
     "Security service": [
       "security-index",
       "security-details",
-      "security-endpoints"
+      "security-endpoints",
+      "security-generate-token"
     ],
     "Mailer service": ["mailer-index", "mailer-details", "mailer-endpoints"],
     "Notifications service": [

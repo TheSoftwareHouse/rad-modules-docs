@@ -98,7 +98,7 @@ RESET_PASSWORD_REGEX:
 
 RESET_PASSWORD_RANDOM:
 
-- **_Description_**: The variable specifies if the user should provide a new password in reset password flow, or the password will be generated randomly by the system.
+- **_Description_**: The variable specifies if the user should provide a new password in reset password flow, or the password will be generated randomly by the system. With default configuration user should send username for whom password will be reset and new password e.g. `{ username: "Username", password: "NewPassword" }`. If the value will be set to `true` then the password will be generated randomly and the user will receive it in response.
 - **_Default_**: `false`
 
 RESET_PASSWORD_RANDOM_MAX_LENGTH:
@@ -110,6 +110,11 @@ REDIS_URL:
 
 - **_Description_**: The variable specifies URL to Redis.
 - **_Default_**: `"redis://redis:6379"`
+
+REDIS_PREFIX
+
+- **_Description_**: The variable specifies Redis prefix with allows check with data belong to security service.
+- **_Default_**: `"rad-modules:security:"`
 
 ACCESS_TOKEN_EXPIRATION:
 
@@ -178,8 +183,18 @@ INITIAL_POLICIES_DATA_JSON_PATH:
 
 LOG_LEVEL:
 
-- **_Description_**: The variable specifies the level of logging logs by the logger
+- **_Description_**: The variable specifies the level of logging logs by the logger available options: `"error"`, `"warn"`, `"help"`, `"info"`, `"debug"`, `"verbose"`, `"silly"`
 - **_Default_**: `"debug"`
+
+REQUEST_LOGGER_FORMAT:
+
+- **_Description_**: All requests are logged so the DevOps can check if the request comes from a user or other service (we use morgan library to log information). We created our format to display information but fill free to use one of build-in morgan library available options: `"combined"`, `"common"`, `"dev"`, `"short"`, `"tiny"`
+- **_Default_**: `":remote-addr :method :url :status :response-time ms - req-body :body - api-key :apiKey - authorization :authorization"`
+
+REQUEST_BODY_KEYS_TO_HIDE
+
+- **_Description_**: We don't want to look at our users' private data so by default we hide some common properties. If you want to cheng that please provide your string with words you want to hide separated witch coma `,`
+- **_Default_**: `"password,token,accessToken,accessKey,authorization"`
 
 IS_USER_ACTIVATION_NEEDED:
 
@@ -254,4 +269,9 @@ ADMIN_PANEL_ADD_ATTRIBUTE_TO_USER
 ADMIN_PANEL_REMOVE_ATTRIBUTE_TO_USER
 
 - **_Description_**: The variable specifies with police have access to remove police attributes from a user
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_GET_USER_ID
+
+- **_Description_**: The variable specifies with police have access to an endpoint with allow to get user's id by username
 - **_Default_**: `"ADMIN_PANEL"`
