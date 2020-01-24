@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Details · RAD modules</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## How to download Mailer service:"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Details · RAD modules"/><meta property="og:type" content="website"/><meta property="og:url" content="https://thesoftwarehouse.github.io/rad-modules-docs/"/><meta property="og:description" content="## How to download Mailer service:"/><meta property="og:image" content="https://thesoftwarehouse.github.io/rad-modules-docs/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/rad-modules-docs/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/rad-modules-docs/js/scrollSpy.js"></script><link rel="stylesheet" href="/rad-modules-docs/css/main.css"/><script src="/rad-modules-docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/rad-modules-docs/"><img class="logo" src="/rad-modules-docs/img/favicon.ico" alt="RAD modules"/><h2 class="headerTitleWithLogo">RAD modules</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a target="_self"></a></li><li class=""><a href="https://github.com/TheSoftwareHouse" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Mailer service</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Documentation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/">Getting started</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Security service</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security-index">Security service</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security-details">Details</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security-endpoints">Security service endpoints</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security-generate-token">Security service communication</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Mailer service</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/mailer-index">Mailer service</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/rad-modules-docs/docs/mailer-details">Details</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/mailer-endpoints">Mailer service endpoints</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Notifications service</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/notifications-index">Notifications service</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/notifications-details">Details</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/notifications-endpoints">Notifications service endpoints</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Scheduler service</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/scheduler-index">Scheduler service</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/scheduler-details">Details</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/scheduler-endpoints">Scheduler service endpoints</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Details</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="how-to-download-mailer-service"></a><a href="#how-to-download-mailer-service" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to download Mailer service:</h2>
+<p>You can download the Mailer service image by using docker command:</p>
+<pre><code class="hljs"><span class="hljs-attribute">docker</span> pull tshio/mailer
+</code></pre>
+<p>We keep the image on our public <a href="https://hub.docker.com/r/tshio/mailer">DockerHub</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="how-to-set-up-mailer-service-in-your-docker-compose-file"></a><a href="#how-to-set-up-mailer-service-in-your-docker-compose-file" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to set up Mailer service in your docker-compose file:</h2>
+<pre><code class="hljs">  <span class="hljs-attribute">mailer</span>:
+    <span class="hljs-attribute">image</span>: tshio/<span class="hljs-attribute">mailer</span>:latest
+    <span class="hljs-attribute">command</span>: api
+    <span class="hljs-attribute">hostname</span>: mailer
+    <span class="hljs-attribute">environment</span>:
+      <span class="hljs-attribute">TRANSPORT_SMTP_PORT</span>: <span class="hljs-number">1025</span>
+      <span class="hljs-attribute">TRANSPORT_SMTP_SECURE</span>: <span class="hljs-string">"false"</span>
+    <span class="hljs-attribute">networks</span>:
+      - app
+</code></pre>
+<p>As you can see, I added some environment variables to the docker-compose file. The variables allow you to overwrite the default setting of the Mailer service. I just overwrite two of them but you can overwrite all of them (if you need to) a full list of available configuration is bellow.</p>
+<h2><a class="anchor" aria-hidden="true" id="configuration-setting-that-you-can-overwrite-via-environment-variables"></a><a href="#configuration-setting-that-you-can-overwrite-via-environment-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuration setting that you can overwrite via environment variables</h2>
+<p>HTTP_PORT:</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the protocol on with the service will be available.</li>
+<li><strong><em>Default</em></strong>:<code>&quot;50050&quot;</code></li>
+</ul>
+<p>PROTOCOL_PROTOCOL</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the protocol of mailer service communication.</li>
+<li><strong><em>Default</em></strong>:<code>&quot;http&quot;</code></li>
+</ul>
+<p>TRANSPORT_TYPE</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the protocol of sending mails notifications.</li>
+<li><strong><em>Default</em></strong>:<code>&quot;smtp&quot;</code></li>
+</ul>
+<p>TRANSPORT_SMTP_POOL</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the if pool in SMTP configuration will be available.</li>
+<li><strong><em>Default</em></strong>:<code>false</code></li>
+</ul>
+<p>TRANSPORT_SMTP_HOST</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies host name of our SMTP Server.</li>
+<li><strong><em>Default</em></strong>:<code>&quot;&quot;</code></li>
+</ul>
+<p>TRANSPORT_SMTP_PORT</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies port of our SMTP Server.</li>
+<li><strong><em>Default</em></strong>: <code>465</code></li>
+</ul>
+<p>TRANSPORT_SMTP_SECURE</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the connection with our SMTP is secure.</li>
+<li><strong><em>Default</em></strong>: <code>false</code></li>
+</ul>
+<p>TRANSPORT_SMTP_AUTH_USER</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the username for our SMTP server.</li>
+<li><strong><em>Default</em></strong>:<code>&quot;&quot;</code></li>
+</ul>
+<p>TRANSPORT_SMTP_AUTH_PASSWORD</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the password for our SMTP server.</li>
+<li><strong><em>Default</em></strong>:<code>&quot;&quot;</code></li>
+</ul>
+<p>TRANSPORT_SMTP_DEBUG</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies if SMTP server should be in debug mode.</li>
+<li><strong><em>Default</em></strong>:<code>false</code></li>
+</ul>
+<p>TRANSPORT_SMTP_TEMPLATES_ROOT</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the path to mail templates.</li>
+<li><strong><em>Default</em></strong>:<code>&quot;/app/services/mailer/mail-templates/&quot;</code></li>
+</ul>
+<p>TRANSPORT_SENDGRID_AUTH_KEY</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the auth key of the SendGrid account if you would like to use it instead of using a local SMTP server.</li>
+<li><strong><em>Default</em></strong>:<code>&quot;&quot;</code></li>
+</ul>
+<p>LOG_LEVEL</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the level of logging logs by the logger available options: <code>&quot;error&quot;</code>, <code>&quot;warn&quot;</code>, <code>&quot;help&quot;</code>, <code>&quot;info&quot;</code>, <code>&quot;debug&quot;</code>, <code>&quot;verbose&quot;</code>, <code>&quot;silly&quot;</code></li>
+<li><strong><em>Default</em></strong>:<code>&quot;debug&quot;</code></li>
+</ul>
+<p>REQUEST_LOGGER_FORMAT:</p>
+<ul>
+<li><strong><em>Description</em></strong>: All requests are logged so the DevOps can check if the request comes from a user or other service (we use morgan library to log information). We created our format to display information but fill free to use one of build-in morgan library available options: <code>&quot;combined&quot;</code>, <code>&quot;common&quot;</code>, <code>&quot;dev&quot;</code>, <code>&quot;short&quot;</code>, <code>&quot;tiny&quot;</code></li>
+<li><strong><em>Default</em></strong>: <code>&quot;:remote-addr :method :url :status :response-time ms - req-body :body - api-key :apiKey - authorization :authorization&quot;</code></li>
+</ul>
+<p>REQUEST_BODY_KEYS_TO_HIDE</p>
+<ul>
+<li><strong><em>Description</em></strong>: We don't want to look at our users' private data so by default we hide some common properties. If you want to cheng that please provide your string with words you want to hide separated witch coma <code>,</code></li>
+<li><strong><em>Default</em></strong>: <code>&quot;password,token,accessToken,accessKey,authorization&quot;</code></li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rad-modules-docs/docs/mailer-index"><span class="arrow-prev">← </span><span>Mailer service</span></a><a class="docs-next button" href="/rad-modules-docs/docs/mailer-endpoints"><span>Mailer service endpoints</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#how-to-download-mailer-service">How to download Mailer service:</a></li><li><a href="#how-to-set-up-mailer-service-in-your-docker-compose-file">How to set up Mailer service in your docker-compose file:</a></li><li><a href="#configuration-setting-that-you-can-overwrite-via-environment-variables">Configuration setting that you can overwrite via environment variables</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/rad-modules-docs/" class="nav-home"><img src="/rad-modules-docs/img/favicon.ico" alt="RAD modules" width="66" height="58"/></a><div><h5>Docs</h5><a href="/rad-modules-docs/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/rad-modules-docs/docs/en/doc2.html">Guides (or other categories)</a><a href="/rad-modules-docs/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/rad-modules-docs/en/users.html">User Showcase</a><a href="https://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/rad-modules-docs/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 The Software House</section></footer></div></body></html>
