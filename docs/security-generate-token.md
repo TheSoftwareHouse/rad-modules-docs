@@ -9,7 +9,9 @@ Our building blocks can communicate with others, e.g. scheduler service needs to
 
 To receive the token the service needs to ask for one. To do that at first system administrator needs to create API key so we will know what/who created access token.
 
-To do that one needs to post data to the endpoint: `/api/tokens/create-access-key`. When one receives API key one should add it to custom header "x-api-key" and post data to `/api/tokens/generate-token`
+You can either use endpoint `/api/tokens/create-access-key` to create code or ask administrator to do so from admin panel directly. After you get API key it should be put in "x-api-key" header and send to POST `/api/tokens/generate-token` endpoint.
+
+An example request should look like this :
 
 ```
 {
