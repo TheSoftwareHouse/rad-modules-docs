@@ -91,27 +91,32 @@ policy.json schema:
 
 ## Configuration setting that you can overwrite via environment variables
 
-RESET_PASSWORD_REGEX:
+PASSWORD_REGEX:
 
 - **_Description_**: Regexp that shows how the password suppose to look like
 - **_Default_**: `".{8,}"`
 
-RESET_PASSWORD_RANDOM:
+PASSWORD_RANDOM:
 
 - **_Description_**: The variable specifies if the user should provide a new password in reset password flow, or the password will be generated randomly by the system. With default configuration user should send username for whom password will be reset and new password e.g. `{ username: "Username", password: "NewPassword" }`. If the value will be set to `true` then the password will be generated randomly and the user will receive it in response.
 - **_Default_**: `false`
 
-RESET_PASSWORD_RANDOM_MAX_LENGTH:
+PASSWORD_RANDOM_MAX_LENGTH:
 
 - **_Description_**: The variable specifies the length of the randomly generated password.
 - **_Default_**: `8`
+
+API_KEY_REGEX:
+
+- **_Description_**: Regexp that shows how the api-key suppose to look like
+- **_Default_**: `".{8,}"`
 
 REDIS_URL:
 
 - **_Description_**: The variable specifies URL to Redis.
 - **_Default_**: `"redis://redis:6379"`
 
-REDIS_PREFIX
+REDIS_PREFIX:
 
 - **_Description_**: The variable specifies Redis prefix with allows check with data belong to security service.
 - **_Default_**: `"rad-modules:security:"`
@@ -156,17 +161,16 @@ OAUTH_SECRET:
 - **_Description_**: The variable specifies the secret for external OAuth provider
 - **_Default_**: `""`
 
+OAUTH_DEFAULT_ATTRIBUTES:
+- **_Description_**: A comma-separated list of default attributes assigned to a new oauth user
+- **_Default_**: `[]`
+
 OAUTH_ALLOWED_DOMAINS:
 
 - **_Description_**: A comma separated list of domains that are allowed to login using oauth
 - **_Default_**: `[]`
 
-REDIRECT_URI:
-
-- **_Description_**: The variable specifies the redirect URL for external OAuth provider
-- **_Default_**: `""`
-
-CREATE_USER_ACCOUNT_ON_OAUTH
+CREATE_USER_ACCOUNT_ON_OAUTH:
 
 - **_Description_**: The variable specifies if a user witch is login via OAuth provider should have created an account in the DB after the login flow
 - **_Default_**: `false`
@@ -191,7 +195,7 @@ REQUEST_LOGGER_FORMAT:
 - **_Description_**: All requests are logged so the DevOps can check if the request comes from a user or other service (we use morgan library to log information). We created our format to display information but fill free to use one of build-in morgan library available options: `"combined"`, `"common"`, `"dev"`, `"short"`, `"tiny"`
 - **_Default_**: `":remote-addr :method :url :status :response-time ms - req-body :body - api-key :apiKey - authorization :authorization"`
 
-REQUEST_BODY_KEYS_TO_HIDE
+REQUEST_BODY_KEYS_TO_HIDE:
 
 - **_Description_**: We don't want to look at our users' private data so by default we hide some common properties. If you want to cheng that please provide your string with words you want to hide separated witch coma `,`
 - **_Default_**: `"password,token,accessToken,accessKey,authorization"`
@@ -216,7 +220,67 @@ SUPER_ADMIN_PASSWORD:
 - **_Description_**: The variable specifies super admin password
 - **_Default_**:`"superadmin"`
 
-SUPER_ADMIN_ROLE
+MAILER_TYPE:
+
+- **_Description_**: The variable specifies mailer configuration (available options: `disabled`, `standalone`, `external`)
+- **_Default_**: `disabled`
+
+MAILER_URL:
+
+- **_Description_**: The variable specifies mailer service URL
+- **_Default_**: `http://localhost/`
+
+MAILER_SMTP_POOL:
+
+- **_Description_**: The variable specifies standalone mailer pool option. Set to true to use pooled connections instead of creating a new connection for every email
+- **_Default_**: `true`
+
+MAILER_SMTP_HOST:
+
+- **_Description_**: The variable specifies the hostname or IP address to connect to
+- **_Default_**: `localhost`
+
+MAILER_SMTP_PORT:
+
+- **_Description_**: The variable specifies the port to connect to (defaults to 587 if is secure is false or 465 if true)
+- **_Default_**: `465`
+
+MAILER_SMTP_SECURE:
+
+- **_Description_**: If true the connection will use TLS when connecting to server. If false then TLS is used if server supports the STARTTLS extension. In most cases set this value to true if you are connecting to port 465. For port 587 or 25 keep it false
+- **_Default_**: `true`
+
+MAILER_SMTP_USER:
+
+- **_Description_**: The variable specifies the SMTP username
+- **_Default_**: `""`
+
+MAILER_SMTP_PASS:
+
+- **_Description_**: The variable specifies the SMTP password
+- **_Default_**: `""`
+
+MAILER_TEMPLATE_CREATE_USER:
+
+- **_Description_**: Path to email template for create new user confirmation
+- **_Default_**: `"/app/services/security/src/utils/mailer/templates/create-user/default/"`
+
+MAILER_TEMPLATE_RESET_PASSWORD:
+
+- **_Description_**: Path to email template for reset password confirmation
+- **_Default_**: `"/app/services/security/src/utils/mailer/templates/reset-password/default/"`
+
+MAILER_SENDER_NAME:
+
+- **_Description_**: Sender name
+- **_Default_**: `"Joe Doe"`
+
+MAILER_SENDER_EMAIL:
+
+- **_Description_**: Sender name
+- **_Default_**: `"joe.doe@example.com"`
+
+SUPER_ADMIN_ROLE:
 
 - **_Description_**: The variable specifies super admin role
 - **_Default_**: `"ROLE_SUPERADMIN"`
@@ -226,52 +290,93 @@ SUPER_ADMIN_ATTRIBUTES:
 - **_Description_**: The variable specifies an array of super admin attributes the admin has access every vere, but on the other hand, perhaps you would like to add some custom attributes for the super admin so here is the place
 - **_Default_**:`["ROLE_SUPERADMIN"]`
 
-ADMIN_PANEL_ADD_USER
+ADMIN_PANEL_ADD_USER:
 
 - **_Description_**: The variable specifies with police have access to add a new users
 - **_Default_**: `"ADMIN_PANEL"`
 
-ADMIN_PANEL_EDIT_USER
+ADMIN_PANEL_EDIT_USER:
 
 - **_Description_**: The variable specifies with police have access to edit a users
 - **_Default_**: `"ADMIN_PANEL"`
 
-ADMIN_PANEL_DEACTIVATE_USER
+ADMIN_PANEL_DEACTIVATE_USER:
 
 - **_Description_**: The variable specifies with police have access to deactivate a users
 - **_Default_**: `"ADMIN_PANEL"`
 
-ADMIN_PANEL_DELETE_USER
+ADMIN_PANEL_DELETE_USER:
 
 - **_Description_**: The variable specifies with police have access to delete a users
 - **_Default_**: `"ADMIN_PANEL"`
 
-ADMIN_PANEL_RESET_PASSWORD
+ADMIN_PANEL_RESET_PASSWORD:
 
 - **_Description_**: The variable specifies with police have access to reset the password for a users
 - **_Default_**: `"ADMIN_PANEL"`
 
-ADMIN_PANEL_ADD_POLICIES
+ADMIN_PANEL_ADD_POLICIES:
 
 - **_Description_**: The variable specifies with police have access to add new policies
 - **_Default_**: `"ADMIN_PANEL"`
 
-ADMIN_PANEL_REMOVE_POLICIES
+ADMIN_PANEL_GET_POLICIES:
+
+- **_Description_**: The variable specifies with police have access to read policies
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_REMOVE_POLICIES:
 
 - **_Description_**: The variable specifies with police have access to remove policies
 - **_Default_**: `"ADMIN_PANEL"`
 
-ADMIN_PANEL_ADD_ATTRIBUTE_TO_USER
+ADMIN_PANEL_ADD_ATTRIBUTE_TO_USER:
 
 - **_Description_**: The variable specifies with police have access to add police attributes for a user
 - **_Default_**: `"ADMIN_PANEL"`
 
-ADMIN_PANEL_REMOVE_ATTRIBUTE_TO_USER
+ADMIN_PANEL_REMOVE_ATTRIBUTE_TO_USER:
 
 - **_Description_**: The variable specifies with police have access to remove police attributes from a user
 - **_Default_**: `"ADMIN_PANEL"`
 
-ADMIN_PANEL_GET_USER_ID
+ADMIN_PANEL_GET_USER_ID:
 
 - **_Description_**: The variable specifies with police have access to an endpoint with allow to get user's id by username
 - **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_CREATE_ACCESS_KEY:
+
+- **_Description_**: The variable specifies with police have access to create api key
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_REMOVE_ACCESS_KEY:
+
+- **_Description_**: The variable specifies with police have access to remove api key
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_GET_ACCESS_KEY:
+
+- **_Description_**: The variable specifies with police have access to read api keys
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_GET_USER:
+
+- **_Description_**: The variable specifies with police have access to get user by user id
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_GET_USERS:
+
+- **_Description_**: The variable specifies with police have access to read users
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_GET_USERS_BY_RESOURCE_NAME:
+
+- **_Description_**: The variable specifies with police have access to read users by resource name
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_GET_ATTRIBUTES:
+
+- **_Description_**: The variable specifies with police have access to read attributes
+- **_Default_**: `"ADMIN_PANEL"`
+
