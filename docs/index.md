@@ -24,3 +24,5 @@ For example, your app needs to send an email after some operation but you don't 
 Our modules are fully configurable so you can change things you want or things you don't need.
 
 If you want to read more about our RAD modules please check the description of each module.
+
+In case of issues feel free to add a new issue on our github.
