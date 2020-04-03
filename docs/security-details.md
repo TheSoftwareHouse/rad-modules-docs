@@ -22,11 +22,23 @@ We keep the image on our public [DockerHub](https://hub.docker.com/r/tshio/secur
     hostname: security
     environment:
       ACCESS_TOKEN_SECRET: secret1234
-      RESET_PASSWORD_RANDOM: true
-      ACCESS_TOKEN_EXPIRATION: 1000
+      ACCESS_TOKEN_EXPIRATION: 10000
+      REFRESH_TOKEN_SECRET: 15000
+      # Uncomment the following lines to enable logging in with third party login providers. (Google account example)
+      # OAUTH_CLIENT_ID: YOUR_OUATH_CLIENT_ID.apps.googleusercontent.com
+      # OAUTH_SECRET: YOUR_SECRET_KEY_FROM_OUATH_SERVICE
+      # OAUTH_ALLOWED_DOMAINS: tsh.io,example.com
+      # CREATE_USER_ACCOUNT_ON_OAUTH: "true"
+    volumes:
+      # Uncomment that to create default users and policies
+      # "INITIAL_DATA_PATH" is the path where the users.json and policy.json files exist. (eg. /tmp/initial-data)
+      # - INITIAL_DATA_PATH:/app/services/security/init-data-volume
     depends_on:
       - postgres
       - redis
+      - mailhog
+    ports:
+      - 50050:50050
     networks:
       - app
 ```
@@ -42,17 +54,16 @@ users.json schema:
 ```
 [
     {
-      username: "user1",
-      password: "passw0rd",
-      attributes: ["attr1", "attr2"],
+      "username": "user1",
+      "password": "passw0rd",
+      "attributes": ["attr1", "attr2"]
     },
     {
-      username: "user2",
-      password: "passw0rd",
-      attributes: ["attr1", "attr2"],
-    },
+      "username": "user2",
+      "password": "passw0rd",
+      "attributes": ["attr1", "attr2"]
+    }
 ]
-
 ```
 
 As you can see you can also initiate data for policy by providing data into policy.js file and overwriting environment variable with the path: `INITIAL_POLICIES_DATA_JSON_PATH`
@@ -62,31 +73,30 @@ policy.json schema:
 ```
 [
     {
-      resource: "res1",
-      attribute: "attr1",
+      "resource": "res1",
+      "attribute": "attr1"
     },
     {
-      resource: "res1",
-      attribute: "attr2",
+      "resource": "res1",
+      "attribute": "attr2"
     },
     {
-      resource: "res2",
-      attribute: "attr1",
+      "resource": "res2",
+      "attribute": "attr1"
     },
     {
-      resource: "res2",
-      attribute: "attr1",
+      "resource": "res2",
+      "attribute": "attr1"
     },
     {
-      resource: "res1",
-      attribute: "attr1",
+      "resource": "res1",
+      "attribute": "attr1"
     },
     {
-      resource: "res1",
-      attribute: "attr1",
-    },
-  ]
-
+      "resource": "res1",
+      "attribute": "attr1"
+    }
+]
 ```
 
 ## Configuration setting that you can overwrite via environment variables
