@@ -60,19 +60,31 @@
 </code></pre>
 <p>We keep the image on our public <a href="https://hub.docker.com/r/tshio/security">DockerHub</a>.</p>
 <h2><a class="anchor" aria-hidden="true" id="how-to-set-up-security-service-in-your-docker-compose-file"></a><a href="#how-to-set-up-security-service-in-your-docker-compose-file" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to set up Security service in your docker-compose file:</h2>
-<pre><code class="hljs">  <span class="hljs-attr">security:</span>
-    <span class="hljs-attr">image:</span> <span class="hljs-string">tshio/security:latest</span>
-    <span class="hljs-attr">command:</span> <span class="hljs-string">api</span>
-    <span class="hljs-attr">hostname:</span> <span class="hljs-string">security</span>
-    <span class="hljs-attr">environment:</span>
-      <span class="hljs-attr">ACCESS_TOKEN_SECRET:</span> <span class="hljs-string">secret1234</span>
-      <span class="hljs-attr">RESET_PASSWORD_RANDOM:</span> <span class="hljs-literal">true</span>
-      <span class="hljs-attr">ACCESS_TOKEN_EXPIRATION:</span> <span class="hljs-number">1000</span>
-    <span class="hljs-attr">depends_on:</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-string">postgres</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-string">redis</span>
-    <span class="hljs-attr">networks:</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-string">app</span>
+<pre><code class="hljs">  security:
+    image: tshio/security:latest
+    command: api
+    hostname: security
+    environment:
+      ACCESS_TOKEN_SECRET: secret1234
+      ACCESS_TOKEN_EXPIRATION: 10000
+      REFRESH_TOKEN_SECRET: 15000
+      # Uncomment the following lines <span class="hljs-keyword">to</span> <span class="hljs-builtin-name">enable</span><span class="hljs-built_in"> logging </span><span class="hljs-keyword">in</span> with third party login providers. (Google account example)
+      # OAUTH_CLIENT_ID: YOUR_OUATH_CLIENT_ID.apps.googleusercontent.com
+      # OAUTH_SECRET: YOUR_SECRET_KEY_FROM_OUATH_SERVICE
+      # OAUTH_ALLOWED_DOMAINS: tsh.io,example.com
+      # CREATE_USER_ACCOUNT_ON_OAUTH: <span class="hljs-string">"true"</span>
+    volumes:
+      # Uncomment that <span class="hljs-keyword">to</span> create<span class="hljs-built_in"> default users </span><span class="hljs-keyword">and</span> policies
+      # <span class="hljs-string">"INITIAL_DATA_PATH"</span> is the path where the users.json <span class="hljs-keyword">and</span> policy.json files exist. (eg. /tmp/initial-data)
+      # - INITIAL_DATA_PATH:/app/services/security/init-data-volume
+    depends_on:
+      - postgres
+      - redis
+      - mailhog
+    ports:
+      - 50050:50050
+    networks:
+      - app
 </code></pre>
 <p>As you can see, I added some environment variables to the docker-compose file. The variables allow you to overwrite the default setting of the Security service. I just overwrite three of them but you can overwrite all of them (if you need to) a full list of available configuration is bellow.</p>
 <p>Security service depends on two other containers to work correctly: DB (Postgres in this situation) and cache (Redis). Therefore we need to use depends_on property.</p>
@@ -80,47 +92,45 @@
 <p>users.json schema:</p>
 <pre><code class="hljs">[
     {
-<span class="hljs-symbol">      username:</span> <span class="hljs-string">"user1"</span>,
-<span class="hljs-symbol">      password:</span> <span class="hljs-string">"passw0rd"</span>,
-<span class="hljs-symbol">      attributes:</span> [<span class="hljs-string">"attr1"</span>, <span class="hljs-string">"attr2"</span>],
+      <span class="hljs-attr">"username"</span>: <span class="hljs-string">"user1"</span>,
+      <span class="hljs-attr">"password"</span>: <span class="hljs-string">"passw0rd"</span>,
+      <span class="hljs-attr">"attributes"</span>: [<span class="hljs-string">"attr1"</span>, <span class="hljs-string">"attr2"</span>]
     },
     {
-<span class="hljs-symbol">      username:</span> <span class="hljs-string">"user2"</span>,
-<span class="hljs-symbol">      password:</span> <span class="hljs-string">"passw0rd"</span>,
-<span class="hljs-symbol">      attributes:</span> [<span class="hljs-string">"attr1"</span>, <span class="hljs-string">"attr2"</span>],
-    },
+      <span class="hljs-attr">"username"</span>: <span class="hljs-string">"user2"</span>,
+      <span class="hljs-attr">"password"</span>: <span class="hljs-string">"passw0rd"</span>,
+      <span class="hljs-attr">"attributes"</span>: [<span class="hljs-string">"attr1"</span>, <span class="hljs-string">"attr2"</span>]
+    }
 ]
-
 </code></pre>
 <p>As you can see you can also initiate data for policy by providing data into policy.js file and overwriting environment variable with the path: <code>INITIAL_POLICIES_DATA_JSON_PATH</code></p>
 <p>policy.json schema:</p>
 <pre><code class="hljs">[
     {
-<span class="hljs-symbol">      resource:</span> <span class="hljs-string">"res1"</span>,
-<span class="hljs-symbol">      attribute:</span> <span class="hljs-string">"attr1"</span>,
+      <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"res1"</span>,
+      <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"attr1"</span>
     },
     {
-<span class="hljs-symbol">      resource:</span> <span class="hljs-string">"res1"</span>,
-<span class="hljs-symbol">      attribute:</span> <span class="hljs-string">"attr2"</span>,
+      <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"res1"</span>,
+      <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"attr2"</span>
     },
     {
-<span class="hljs-symbol">      resource:</span> <span class="hljs-string">"res2"</span>,
-<span class="hljs-symbol">      attribute:</span> <span class="hljs-string">"attr1"</span>,
+      <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"res2"</span>,
+      <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"attr1"</span>
     },
     {
-<span class="hljs-symbol">      resource:</span> <span class="hljs-string">"res2"</span>,
-<span class="hljs-symbol">      attribute:</span> <span class="hljs-string">"attr1"</span>,
+      <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"res2"</span>,
+      <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"attr1"</span>
     },
     {
-<span class="hljs-symbol">      resource:</span> <span class="hljs-string">"res1"</span>,
-<span class="hljs-symbol">      attribute:</span> <span class="hljs-string">"attr1"</span>,
+      <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"res1"</span>,
+      <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"attr1"</span>
     },
     {
-<span class="hljs-symbol">      resource:</span> <span class="hljs-string">"res1"</span>,
-<span class="hljs-symbol">      attribute:</span> <span class="hljs-string">"attr1"</span>,
-    },
-  ]
-
+      <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"res1"</span>,
+      <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"attr1"</span>
+    }
+]
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="configuration-setting-that-you-can-overwrite-via-environment-variables"></a><a href="#configuration-setting-that-you-can-overwrite-via-environment-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuration setting that you can overwrite via environment variables</h2>
 <p>PASSWORD_REGEX:</p>
