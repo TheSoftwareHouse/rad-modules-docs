@@ -17,9 +17,9 @@ We keep the image on our public [DockerHub](https://hub.docker.com/r/tshio/secur
 
 ```
   security:
-    image: tshio/security:latest
+    image: tshio/security:0.0.46
     working_dir: /app/build/services/security
-    command: [sh, -c, "node ./src/index.js"]
+    command: api
     hostname: security
     environment:
       ACCESS_TOKEN_SECRET: secret1234
@@ -438,10 +438,18 @@ ADMIN_PANEL_GET_ATTRIBUTES:
 - **_Description_**: The variable specifies with police have access to read attributes
 - **_Default_**: `"ADMIN_PANEL"`
 
+## Security admin panel
+
+If you would like you can connect the admin panel to our security module. In the admin panel, you will be able to manage users and policies. Below you can check how simple it is to connect the panel.
+
+If you didn't change default credential for admin user you can log in into the panel by using login: superadmin, password: superadmin
+If you will use the security module in production remember to change these credentials.
+
 ## Working example docker-compose.yaml
 
 ```
 version: "3.7"
+
 services:
   postgres:
     image: postgres:10-alpine
@@ -449,15 +457,19 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_USERNAME: postgres
       POSTGRES_DB: users
+    networks:
+      - app
 
   redis:
     image: redis:4-alpine
     hostname: redis
+    networks:
+      - app
 
   security:
-    image: tshio/security:latest
+    image: tshio/security:0.0.46
     working_dir: /app/build/services/security
-    command: [sh, -c, "node ./src/index.js"]
+    command: api
     hostname: security
     volumes:
       - ./init-data-volume/:/app/services/security/init-data-volume
@@ -469,19 +481,19 @@ services:
     depends_on:
       - postgres
       - redis
+    networks:
+      - app
 
   security-panel:
-    image: tshio/rad-admin:0.0.2
+    image: tshio/rad-admin:0.0.3
     environment:
       REACT_APP_SECURITY_API_URL: "http://localhost:50050"
     ports:
       - 9000:80
+    networks:
+      - app
 
-  adminer:
-    image: adminer
-    restart: always
-    depends_on:
-      - postgres
-    ports:
-      - 8080:8080
+networks:
+  app:
+
 ```
