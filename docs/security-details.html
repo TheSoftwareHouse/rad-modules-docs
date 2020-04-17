@@ -374,22 +374,27 @@
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="working-example-docker-composeyaml"></a><a href="#working-example-docker-composeyaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Working example docker-compose.yaml</h2>
 <pre><code class="hljs"><span class="hljs-symbol">version:</span> <span class="hljs-string">"3.7"</span>
-<span class="hljs-symbol">services:</span>
+<span class="hljs-symbol">
+services:</span>
 <span class="hljs-symbol">  postgres:</span>
 <span class="hljs-symbol">    image:</span> postgres:<span class="hljs-number">10</span>-alpine
 <span class="hljs-symbol">    environment:</span>
 <span class="hljs-symbol">      POSTGRES_PASSWORD:</span> password
 <span class="hljs-symbol">      POSTGRES_USERNAME:</span> postgres
 <span class="hljs-symbol">      POSTGRES_DB:</span> users
+<span class="hljs-symbol">    networks:</span>
+      - app
 <span class="hljs-symbol">
   redis:</span>
 <span class="hljs-symbol">    image:</span> redis:<span class="hljs-number">4</span>-alpine
 <span class="hljs-symbol">    hostname:</span> redis
+<span class="hljs-symbol">    networks:</span>
+      - app
 <span class="hljs-symbol">
   security:</span>
 <span class="hljs-symbol">    image:</span> tshio/security:latest
 <span class="hljs-symbol">    working_dir:</span> <span class="hljs-meta-keyword">/app/</span>build<span class="hljs-meta-keyword">/services/</span>security
-<span class="hljs-symbol">    command:</span> [sh, -c, <span class="hljs-string">"node ./src/index.js"</span>]
+<span class="hljs-symbol">    command:</span> api
 <span class="hljs-symbol">    hostname:</span> security
 <span class="hljs-symbol">    volumes:</span>
       - .<span class="hljs-meta-keyword">/init-data-volume/</span>:<span class="hljs-meta-keyword">/app/</span>services<span class="hljs-meta-keyword">/security/</span>init-data-volume
@@ -401,20 +406,20 @@
     depends_on:</span>
       - postgres
       - redis
+<span class="hljs-symbol">    networks:</span>
+      - app
 
   security-panel:
-<span class="hljs-symbol">    image:</span> tshio/rad-admin:<span class="hljs-number">0.0</span><span class="hljs-number">.2</span>
+<span class="hljs-symbol">    image:</span> tshio/rad-admin:latest
 <span class="hljs-symbol">    environment:</span>
 <span class="hljs-symbol">      REACT_APP_SECURITY_API_URL:</span> <span class="hljs-string">"http://localhost:50050"</span>
 <span class="hljs-symbol">    ports:</span>
       - <span class="hljs-number">9000</span>:<span class="hljs-number">80</span>
+<span class="hljs-symbol">    networks:</span>
+      - app
 <span class="hljs-symbol">
-  adminer:</span>
-<span class="hljs-symbol">    image:</span> adminer
-<span class="hljs-symbol">    restart:</span> always
-<span class="hljs-symbol">    depends_on:</span>
-      - postgres
-<span class="hljs-symbol">    ports:</span>
-      - <span class="hljs-number">8080</span>:<span class="hljs-number">8080</span>
+networks:</span>
+<span class="hljs-symbol">  app:</span>
+
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rad-modules-docs/docs/security-index"><span class="arrow-prev">← </span><span>Security service</span></a><a class="docs-next button" href="/rad-modules-docs/docs/security-endpoints"><span>Security service endpoints</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#how-to-download-security-service">How to download Security service:</a></li><li><a href="#how-to-set-up-security-service-in-your-docker-compose-file">How to set up Security service in your docker-compose file:</a></li><li><a href="#configuration-setting-that-you-can-overwrite-via-environment-variables">Configuration setting that you can overwrite via environment variables</a></li><li><a href="#working-example-docker-composeyaml">Working example docker-compose.yaml</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/rad-modules-docs/" class="nav-home"><img src="/rad-modules-docs/img/favicon.ico" alt="RAD modules" width="66" height="58"/></a><div><h5>Docs</h5><a href="/rad-modules-docs/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/rad-modules-docs/docs/en/doc2.html">Guides (or other categories)</a><a href="/rad-modules-docs/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/rad-modules-docs/en/users.html">User Showcase</a><a href="https://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/rad-modules-docs/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 The Software House</section></footer></div></body></html>
