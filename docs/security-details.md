@@ -103,12 +103,12 @@ policy.json schema:
 
 PASSWORD_REGEX:
 
-- **_Description_**: Regexp that shows how the password suppose to look like
+- **_Description_**: Regexp that shows rules how the password suppose to look like
 - **_Default_**: `".{8,}"`
 
 PASSWORD_RANDOM:
 
-- **_Description_**: The variable specifies if the user should provide a new password in reset password flow, or the password will be generated randomly by the system. With default configuration user should send username for whom password will be reset and new password e.g. `{ username: "Username", password: "NewPassword" }`. If the value will be set to `true` then the password will be generated randomly and the user will receive it in response.
+- **_Description_**: The variable specifies if users that will be inited from the file should have a password generated randomly or a password should be provided in the user's file.
 - **_Default_**: `false`
 
 PASSWORD_RANDOM_MAX_LENGTH:
@@ -161,6 +161,12 @@ DB_LOGGING:
 - **_Description_**: The variable specifies if the logging in the database should be turned on
 - **_Default_**: `true`
 
+OAUTH_ENABLED_PROVIDERS"
+
+- **_Description_**: The variable specifies witch OAuth provider are enabled. It doesn't mean that you are forced to
+- **_Default_**: `""`
+- **_Available_**: `"google, facebook, other"`
+
 OAUTH_CLIENT_ID:
 
 - **_Description_**: The variable specifies the id of external OAuth provider
@@ -180,7 +186,37 @@ OAUTH_ALLOWED_DOMAINS:
 - **_Description_**: A comma separated list of domains that are allowed to login using oauth
 - **_Default_**: `[]`
 
-CREATE_USER_ACCOUNT_ON_OAUTH:
+OAUTH_GOOGLE_CLIENT_ID:
+
+- **_Description_**: The variable specifies the id of external Google OAuth provider
+- **_Default_**: `""`
+
+OAUTH_GOOGLE_CLIENT_SECRET:
+
+- **_Description_**: The variable specifies the secret for external Google OAuth provider
+- **_Default_**: `""`
+
+OAUTH_GOOGLE_CLIENT_ALLOWED_DOMAINS:
+
+- **_Description_**: A comma separated list of domains that are allowed to login using Google OAuth
+- **_Default_**: `[]`
+
+OAUTH_FACEBOOK_CLIENT_ID:
+
+- **_Description_**: The variable specifies the id of external Facebook OAuth provider
+- **_Default_**: `""`
+
+OAUTH_FACEBOOK_CLIENT_SECRET:
+
+- **_Description_**: The variable specifies the secret for external Facebook OAuth provider
+- **_Default_**: `""`
+
+OAUTH_CREATE_USER_ACCOUNT
+
+- **_Description_**: The variable specifies if a user witch is login via OAuth provider should have created an account in the DB after the login flow
+- **_Default_**: `false`
+
+CREATE_USER_ACCOUNT_ON_OAUTH
 
 - **_Description_**: The variable specifies if a user witch is login via OAuth provider should have created an account in the DB after the login flow
 - **_Default_**: `false`
@@ -353,6 +389,26 @@ ADMIN_PANEL_REMOVE_ATTRIBUTE_TO_USER:
 ADMIN_PANEL_GET_USER_ID:
 
 - **_Description_**: The variable specifies with police have access to an endpoint with allow to get user's id by username
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_GET_USER
+
+- **_Description_**: The variable specifies with police have access to an endpoint with allow to get user
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_GET_USERS
+
+- **_Description_**: The variable specifies with police have access to an endpoint with allow to get all users
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_GET_USERS_BY_RESOURCE_NAME
+
+- **_Description_**: The variable specifies with police have access to an endpoint with allow to get all users by policy resource
+- **_Default_**: `"ADMIN_PANEL"`
+
+ADMIN_PANEL_GET_ATTRIBUTES
+
+- **_Description_**: The variable specifies with police have access to an endpoint with allow to get policy attributes
 - **_Default_**: `"ADMIN_PANEL"`
 
 ADMIN_PANEL_CREATE_ACCESS_KEY:
