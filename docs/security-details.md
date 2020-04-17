@@ -18,36 +18,30 @@ We keep the image on our public [DockerHub](https://hub.docker.com/r/tshio/secur
 ```
   security:
     image: tshio/security:latest
-    command: api
+    working_dir: /app/build/services/security
+    command: [sh, -c, "node ./src/index.js"]
     hostname: security
     environment:
       ACCESS_TOKEN_SECRET: secret1234
-      ACCESS_TOKEN_EXPIRATION: 10000
-      REFRESH_TOKEN_SECRET: 15000
-      # Uncomment the following lines to enable logging in with third party login providers. (Google account example)
-      # OAUTH_CLIENT_ID: YOUR_OUATH_CLIENT_ID.apps.googleusercontent.com
-      # OAUTH_SECRET: YOUR_SECRET_KEY_FROM_OUATH_SERVICE
-      # OAUTH_ALLOWED_DOMAINS: tsh.io,example.com
-      # CREATE_USER_ACCOUNT_ON_OAUTH: "true"
-    volumes:
-      # Uncomment that to create default users and policies
-      # "INITIAL_DATA_PATH" is the path where the users.json and policy.json files exist. (eg. /tmp/initial-data)
-      # - INITIAL_DATA_PATH:/app/services/security/init-data-volume
+      ACCESS_TOKEN_EXPIRATION: 1000
+      REACT_APP_SECURITY_API_URL: "http://localhost:50050"
+    ports:
+      - "50050:50050"
     depends_on:
       - postgres
       - redis
-      - mailhog
-    ports:
-      - 50050:50050
-    networks:
-      - app
 ```
 
 As you can see, I added some environment variables to the docker-compose file. The variables allow you to overwrite the default setting of the Security service. I just overwrite three of them but you can overwrite all of them (if you need to) a full list of available configuration is bellow.
 
 Security service depends on two other containers to work correctly: DB (Postgres in this situation) and cache (Redis). Therefore we need to use depends_on property.
 
-If you would like to initialize the database with users that you already have you can do it by putting the data about users in users.json file after you need to overwrite increment variable with the path to the file with data: `INITIAL_USERS_DATA_JSON_PATH`
+If you would like to initialize the database with users and policy that you already have you can do it by creating a new catalog e.g. init-data-volume with two files in it: `users.json` and `policy.json` after that you need to add volumes to security container in yours docker-compose (I created the catalog on the same level where the docker-compose file is)
+
+```
+    volumes:
+      - ./init-data-volume/:/app/services/security/init-data-volume
+```
 
 users.json schema:
 
@@ -65,8 +59,6 @@ users.json schema:
     }
 ]
 ```
-
-As you can see you can also initiate data for policy by providing data into policy.js file and overwriting environment variable with the path: `INITIAL_POLICIES_DATA_JSON_PATH`
 
 policy.json schema:
 
@@ -446,3 +438,50 @@ ADMIN_PANEL_GET_ATTRIBUTES:
 - **_Description_**: The variable specifies with police have access to read attributes
 - **_Default_**: `"ADMIN_PANEL"`
 
+## Working example docker-compose.yaml
+
+```
+version: "3.7"
+services:
+  postgres:
+    image: postgres:10-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USERNAME: postgres
+      POSTGRES_DB: users
+
+  redis:
+    image: redis:4-alpine
+    hostname: redis
+
+  security:
+    image: tshio/security:latest
+    working_dir: /app/build/services/security
+    command: [sh, -c, "node ./src/index.js"]
+    hostname: security
+    volumes:
+      - ./init-data-volume/:/app/services/security/init-data-volume
+    environment:
+      REACT_APP_SECURITY_API_URL: "http://localhost:50050"
+    ports:
+      - "50050:50050"
+
+    depends_on:
+      - postgres
+      - redis
+
+  security-panel:
+    image: tshio/rad-admin:0.0.2
+    environment:
+      REACT_APP_SECURITY_API_URL: "http://localhost:50050"
+    ports:
+      - 9000:80
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+```
