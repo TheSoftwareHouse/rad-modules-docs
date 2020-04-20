@@ -155,7 +155,7 @@ DB_LOGGING:
 
 OAUTH_ENABLED_PROVIDERS"
 
-- **_Description_**: The variable specifies witch OAuth provider are enabled. It doesn't mean that you are forced to
+- **_Description_**: The variable specifies with OAuth provider are enabled. It doesn't mean that you are forced to
 - **_Default_**: `""`
 - **_Available_**: `"google, facebook, other"`
 
@@ -170,6 +170,7 @@ OAUTH_SECRET:
 - **_Default_**: `""`
 
 OAUTH_DEFAULT_ATTRIBUTES:
+
 - **_Description_**: A comma-separated list of default attributes assigned to a new oauth user
 - **_Default_**: `[]`
 
@@ -205,12 +206,12 @@ OAUTH_FACEBOOK_CLIENT_SECRET:
 
 OAUTH_CREATE_USER_ACCOUNT
 
-- **_Description_**: The variable specifies if a user witch is login via OAuth provider should have created an account in the DB after the login flow
+- **_Description_**: The variable specifies if a user with is login via OAuth provider should have created an account in the DB after the login flow
 - **_Default_**: `false`
 
 CREATE_USER_ACCOUNT_ON_OAUTH
 
-- **_Description_**: The variable specifies if a user witch is login via OAuth provider should have created an account in the DB after the login flow
+- **_Description_**: The variable specifies if a user with is login via OAuth provider should have created an account in the DB after the login flow
 - **_Default_**: `false`
 
 INITIAL_USERS_DATA_JSON_PATH:
@@ -235,7 +236,7 @@ REQUEST_LOGGER_FORMAT:
 
 REQUEST_BODY_KEYS_TO_HIDE:
 
-- **_Description_**: We don't want to look at our users' private data so by default we hide some common properties. If you want to cheng that please provide your string with words you want to hide separated witch coma `,`
+- **_Description_**: We don't want to look at our users' private data so by default we hide some common properties. If you want to cheng that please provide your string with words you want to hide separated with coma `,`
 - **_Default_**: `"password,token,accessToken,accessKey,authorization"`
 
 IS_USER_ACTIVATION_NEEDED:
