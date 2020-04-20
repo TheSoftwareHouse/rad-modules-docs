@@ -7,6 +7,7 @@
       "security-endpoints",
       "security-generate-token"
     ],
+    "Admin panel": ["rad-admin-panel-index"],
     "Mailer service": ["mailer-index", "mailer-details", "mailer-endpoints"],
     "Notifications service": [
       "notifications-index",

@@ -439,13 +439,6 @@ ADMIN_PANEL_GET_ATTRIBUTES:
 - **_Description_**: The variable specifies with police have access to read attributes
 - **_Default_**: `"ADMIN_PANEL"`
 
-## Security admin panel
-
-If you would like you can connect the admin panel to our security module. In the admin panel, you will be able to manage users and policies. Below you can check how simple it is to connect the panel.
-
-If you didn't change default credential for admin user you can log in into the panel by using login: superadmin, password: superadmin
-If you will use the security module in production remember to change these credentials.
-
 ## Working example docker-compose.yaml
 
 ```

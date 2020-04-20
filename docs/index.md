@@ -11,6 +11,7 @@ There are many digital systems worldwide. Each system was developed to solve som
 2. Module for sending emails,
 3. Module for running scheduled jobs,
 4. Module for pushing notifications,
+5. Module with GUI admin panel to manage other modules (optional),
 
 RAD modules were developed to simplify the development process so developers can focus only on business requirements.
 
