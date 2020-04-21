@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Attribute-based access control · RAD modules</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Security service and ABAC:"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Attribute-based access control · RAD modules"/><meta property="og:type" content="website"/><meta property="og:url" content="https://thesoftwarehouse.github.io/rad-modules-docs/"/><meta property="og:description" content="## Security service and ABAC:"/><meta property="og:image" content="https://thesoftwarehouse.github.io/rad-modules-docs/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/rad-modules-docs/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/rad-modules-docs/js/scrollSpy.js"></script><link rel="stylesheet" href="/rad-modules-docs/css/main.css"/><script src="/rad-modules-docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/rad-modules-docs/"><img class="logo" src="/rad-modules-docs/img/favicon.ico" alt="RAD modules"/><h2 class="headerTitleWithLogo">RAD modules</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a target="_self"></a></li><li class=""><a href="https://github.com/TheSoftwareHouse" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Security service</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Documentation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/">Getting started</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Security service</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security-index">Security service</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security-details">Details</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/rad-modules-docs/docs/security-abac">Attribute-based access control</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security-endpoints">Security service endpoints</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security-generate-token">Security service communication</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Admin panel</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/rad-admin-panel-index">Details</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Mailer service</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/mailer-index">Mailer service</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/mailer-details">Details</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/mailer-endpoints">Mailer service endpoints</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Notifications service</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/notifications-index">Notifications service</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/notifications-details">Details</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/notifications-endpoints">Notifications service endpoints</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Scheduler service</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/scheduler-index">Scheduler service</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/scheduler-details">Details</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/scheduler-endpoints">Scheduler service endpoints</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Attribute-based access control</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="security-service-and-abac"></a><a href="#security-service-and-abac" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Security service and ABAC:</h2>
+<p>In our security service <strong>Attribute-based access control (ABAC)</strong>, also known as <strong>policy-based access control</strong>, defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes etc.). This model supports Boolean logic, in which rules contain &quot;IF, THEN&quot; statements about who is making the request, the resource, and the action. For example: IF the requestor is a manager, THEN allow read/write access to sensitive data.</p>
+<h2><a class="anchor" aria-hidden="true" id="default-attributes"></a><a href="#default-attributes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Default attributes:</h2>
+<p>You can overwrite default attributes (by providing valid env variables please check the Security service details page) that are related to managing users and policies. By default, all provided attributes in the security service have an attribute named: <code>ADMIN_PANEL</code> you can change the name for each attribute. Below is a list of all default attributes and resources. Remember you can change attribute name but you are not able to change resource value for default attributes.</p>
+<h2><a class="anchor" aria-hidden="true" id="default-attributes-list"></a><a href="#default-attributes-list" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Default attributes list:</h2>
+<pre><code class="hljs">[
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/add-user"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/edit-user"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/deactivate-user"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/delete-user"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/reset-password"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/add-policies"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/get-policies"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/remove-policies"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/add-attribute-to-user"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/remove-attribute-to-user"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"user-operation/get-user-id"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"api/tokens/create-access-key"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"api/tokens/remove-access-key"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"api/tokens/get-access-keys"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"api/users"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"api/users/get-user"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"api/users/get-users-by-resource"</span>
+  },
+  {
+    <span class="hljs-attr">"attribute"</span>: <span class="hljs-string">"ADMIN_PANEL"</span>,
+    <span class="hljs-attr">"resource"</span>: <span class="hljs-string">"api/attributes/get-attributes"</span>
+  }
+]
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="add-new-attribute"></a><a href="#add-new-attribute" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add new attribute:</h2>
+<p>As you can see in the list above all default attributes have the name &quot;ADMIN_PANEL&quot; (if you won't change it by changing configuration of course). And maybe you are good with that, but you would like to give the ability for one user to check the list of all users from the security service. If you will assign for the user &quot;ADMIN_PANEL&quot; attribute the user will have access to all other resources that are assigned to the &quot;ADMIN_PANEL&quot; attribute. In that case, the best way to handle that is to create a new attribute with access to fetch the list of all users.</p>
+<p>If you want to add a new attribute e.g. allowing to fetch a list of all users &quot;api/users&quot; you need three things:</p>
+<ol>
+<li>User with access to adding new attributes</li>
+<li>RAD Modules admin panel or HTTP client</li>
+<li>Name for the new attribute</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="add-new-attribute-by-http-client"></a><a href="#add-new-attribute-by-http-client" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add new attribute by HTTP client:</h2>
+<p>If you will be using HTTP client you need to post new attribute and resource to <code>api/policy/add-policy</code> with:</p>
+<pre><code class="hljs"><span class="hljs-selector-tag">body</span>:{
+ <span class="hljs-attribute">attribute</span>: <span class="hljs-string">"GET_USERS"</span>
+ resource: <span class="hljs-string">"api/users/get-user"</span>
+}
+</code></pre>
+<p>Then if you want to assign a new attribute to the user you need post
+the body to the endpoint: <code>api/users/add-attribute</code></p>
+<pre><code class="hljs"><span class="hljs-selector-tag">body</span>: {
+    <span class="hljs-attribute">userId</span>: <span class="hljs-string">"11111111-1111-1111-1111-111111111"</span>,
+    attributes: [<span class="hljs-string">"GET_USERS"</span>]
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="add-new-attribute-by-the-admin-panel"></a><a href="#add-new-attribute-by-the-admin-panel" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add new attribute by the admin panel:</h2>
+<ol>
+<li>Go to Policies view</li>
+<li>Click &quot;Add Policy&quot; button</li>
+<li>Insert attribute and resource e.g. ( GET_USERS and api/users/get-user)</li>
+<li>Click &quot;OK&quot; button</li>
+<li>Go to Users view</li>
+<li>Choice the user that should have the new policy by clicking the user edit icon (last column in the table). You will be moved to the user details view</li>
+<li>Click &quot;Add new attribute&quot; button</li>
+<li>Search the attribute you want to add for the user in our case: GET_USERS</li>
+<li>Select the attribute from the drop-down list</li>
+<li>Click &quot;OK&quot; button</li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rad-modules-docs/docs/security-details"><span class="arrow-prev">← </span><span>Details</span></a><a class="docs-next button" href="/rad-modules-docs/docs/security-endpoints"><span>Security service endpoints</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#security-service-and-abac">Security service and ABAC:</a></li><li><a href="#default-attributes">Default attributes:</a></li><li><a href="#default-attributes-list">Default attributes list:</a></li><li><a href="#add-new-attribute">Add new attribute:</a></li><li><a href="#add-new-attribute-by-http-client">Add new attribute by HTTP client:</a></li><li><a href="#add-new-attribute-by-the-admin-panel">Add new attribute by the admin panel:</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/rad-modules-docs/" class="nav-home"><img src="/rad-modules-docs/img/favicon.ico" alt="RAD modules" width="66" height="58"/></a><div><h5>Docs</h5><a href="/rad-modules-docs/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/rad-modules-docs/docs/en/doc2.html">Guides (or other categories)</a><a href="/rad-modules-docs/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/rad-modules-docs/en/users.html">User Showcase</a><a href="https://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/rad-modules-docs/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 The Software House</section></footer></div></body></html>
