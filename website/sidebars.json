@@ -4,6 +4,7 @@
     "Security service": [
       "security-index",
       "security-details",
+      "security-abac",
       "security-endpoints",
       "security-generate-token"
     ],
