@@ -6,7 +6,8 @@
       "security-details",
       "security-abac",
       "security-endpoints",
-      "security-generate-token"
+      "security-generate-token",
+      "security-getting-started"
     ],
     "Admin panel": ["rad-admin-panel-index"],
     "Mailer service": ["mailer-index", "mailer-details", "mailer-endpoints"],
