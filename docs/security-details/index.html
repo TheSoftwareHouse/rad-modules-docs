@@ -124,10 +124,20 @@
 ]
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="configuration-setting-that-you-can-overwrite-via-environment-variables"></a><a href="#configuration-setting-that-you-can-overwrite-via-environment-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuration setting that you can overwrite via environment variables</h2>
+<p>API_URL:</p>
+<ul>
+<li><strong><em>Description</em></strong>: The URL where the application is available outside</li>
+<li><strong><em>Default</em></strong>: <code>&quot;&quot;</code></li>
+</ul>
 <p>PASSWORD_REGEX:</p>
 <ul>
 <li><strong><em>Description</em></strong>: Regexp that shows rules how the password suppose to look like</li>
 <li><strong><em>Default</em></strong>: <code>&quot;.{8,}&quot;</code></li>
+</ul>
+<p>PASSWORD_VALIDATION_ERROR</p>
+<ul>
+<li><strong><em>Description</em></strong>: Error message if the password doesn't match regexp</li>
+<li><strong><em>Default</em></strong>: <code>&quot;password must be at least 8 characters&quot;</code></li>
 </ul>
 <p>PASSWORD_RANDOM:</p>
 <ul>
@@ -225,6 +235,21 @@
 <li><strong><em>Description</em></strong>: A comma separated list of domains that are allowed to login using Google OAuth</li>
 <li><strong><em>Default</em></strong>: <code>[]</code></li>
 </ul>
+<p>OAUTH_MICROSOFT_CLIENT_ID:</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the id of external Microsoft OAuth provider</li>
+<li><strong><em>Default</em></strong>: <code>&quot;&quot;</code></li>
+</ul>
+<p>OAUTH_MICROSOFT_CLIENT_SECRET:</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the secret for external Microsoft OAuth provider</li>
+<li><strong><em>Default</em></strong>: <code>&quot;&quot;</code></li>
+</ul>
+<p>OAUTH_MICROSOFT_CLIENT_ALLOWED_DOMAINS:</p>
+<ul>
+<li><strong><em>Description</em></strong>: A comma separated list of domains that are allowed to login using Microsoft OAuth</li>
+<li><strong><em>Default</em></strong>: <code>[]</code></li>
+</ul>
 <p>OAUTH_FACEBOOK_CLIENT_ID:</p>
 <ul>
 <li><strong><em>Description</em></strong>: The variable specifies the id of external Facebook OAuth provider</li>
@@ -300,6 +325,11 @@
 <li><strong><em>Description</em></strong>: The variable specifies mailer service URL</li>
 <li><strong><em>Default</em></strong>: <code>http://localhost/</code></li>
 </ul>
+<p>MAILER_NEW_PASSWORD_SPA_URL</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies client app URL with will be send in reset password email</li>
+<li><strong><em>Default</em></strong>: <code>http://localhost:3000/new-password</code></li>
+</ul>
 <p>MAILER_SMTP_POOL:</p>
 <ul>
 <li><strong><em>Description</em></strong>: The variable specifies standalone mailer pool option. Set to true to use pooled connections instead of creating a new connection for every email</li>
@@ -339,6 +369,11 @@
 <ul>
 <li><strong><em>Description</em></strong>: Path to email template for reset password confirmation</li>
 <li><strong><em>Default</em></strong>: <code>&quot;/app/services/security/src/utils/mailer/templates/reset-password/default/&quot;</code></li>
+</ul>
+<p>MAILER_TEMPLATE_RESET_PASSWORD_TOKEN:</p>
+<ul>
+<li><strong><em>Description</em></strong>: Path to email template for reset password token confirmation</li>
+<li><strong><em>Default</em></strong>: <code>&quot;/app/services/security/src/utils/mailer/templates/reset-password-token/default/&quot;</code></li>
 </ul>
 <p>MAILER_SENDER_NAME:</p>
 <ul>
@@ -445,7 +480,7 @@
 <li><strong><em>Description</em></strong>: The variable specifies with police have access to remove api key</li>
 <li><strong><em>Default</em></strong>: <code>&quot;ADMIN_PANEL&quot;</code></li>
 </ul>
-<p>ADMIN_PANEL_GET_ACCESS_KEY:</p>
+<p>ADMIN_PANEL_GET_ACCESS_KEYS:</p>
 <ul>
 <li><strong><em>Description</em></strong>: The variable specifies with police have access to read api keys</li>
 <li><strong><em>Default</em></strong>: <code>&quot;ADMIN_PANEL&quot;</code></li>
@@ -469,5 +504,10 @@
 <ul>
 <li><strong><em>Description</em></strong>: The variable specifies with police have access to read attributes</li>
 <li><strong><em>Default</em></strong>: <code>&quot;ADMIN_PANEL&quot;</code></li>
+</ul>
+<p>INITIAL_API_KEYS</p>
+<ul>
+<li><strong><em>Description</em></strong>: If you need API keys to communicate with the security service on the module start you need to provide these keys in string separated by a comma &quot;,&quot; e.g. &quot;3add29a2-f629-c17a-0464-fb4415b24e13,875c2b9d-0cb5-5d98-39d3-bb2cc3dc0ca8&quot;</li>
+<li><strong><em>Default</em></strong>: <code>[]</code></li>
 </ul>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rad-modules-docs/docs/security-index"><span class="arrow-prev">← </span><span>Security service</span></a><a class="docs-next button" href="/rad-modules-docs/docs/security-abac"><span>Attribute-based access control</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#how-to-download-security-service">How to download Security service:</a></li><li><a href="#how-to-set-up-security-service-in-your-docker-compose-file">How to set up Security service in your docker-compose file:</a></li><li><a href="#configuration-setting-that-you-can-overwrite-via-environment-variables">Configuration setting that you can overwrite via environment variables</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/rad-modules-docs/" class="nav-home"><img src="/rad-modules-docs/img/favicon.ico" alt="RAD modules" width="66" height="58"/></a><div><h5>Docs</h5><a href="/rad-modules-docs/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/rad-modules-docs/docs/en/doc2.html">Guides (or other categories)</a><a href="/rad-modules-docs/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/rad-modules-docs/en/users.html">User Showcase</a><a href="https://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/rad-modules-docs/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 The Software House</section></footer></div></body></html>
