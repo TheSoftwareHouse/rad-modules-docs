@@ -1,6 +1,6 @@
 ---
-id: mailer-endpoints
-title: Mailer service endpoints
+id: mailer-swagger
+title: Mailer service swagger
 ---
 
 ## How to communicate with Mailer service:

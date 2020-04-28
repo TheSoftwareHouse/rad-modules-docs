@@ -1,25 +1,22 @@
 {
   "docs": {
     "Documentation": ["index"],
-    "Security service": [
+    "Services endpoints": ["services-endpoints"],
+    "Security": [
       "security-index",
       "security-details",
       "security-abac",
-      "security-endpoints",
+      "security-swagger",
       "security-generate-token",
       "security-getting-started"
     ],
     "Admin panel": ["rad-admin-panel-index"],
-    "Mailer service": ["mailer-index", "mailer-details", "mailer-endpoints"],
-    "Notifications service": [
+    "Mailer": ["mailer-index", "mailer-details", "mailer-swagger"],
+    "Notifications": [
       "notifications-index",
       "notifications-details",
-      "notifications-endpoints"
+      "notifications-swagger"
     ],
-    "Scheduler service": [
-      "scheduler-index",
-      "scheduler-details",
-      "scheduler-endpoints"
-    ]
+    "Scheduler": ["scheduler-index", "scheduler-details", "scheduler-swagger"]
   }
 }

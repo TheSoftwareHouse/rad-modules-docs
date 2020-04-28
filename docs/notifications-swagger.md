@@ -1,6 +1,6 @@
 ---
-id: notifications-endpoints
-title: Notifications service endpoints
+id: notifications-swagger
+title: Notifications service swagger
 ---
 
 ## How to communicate with Notifications service:

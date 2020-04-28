@@ -1,6 +1,6 @@
 ---
-id: scheduler-endpoints
-title: Scheduler service endpoints
+id: scheduler-swagger
+title: Scheduler service swagger
 ---
 
 ## How to communicate with Scheduler service:

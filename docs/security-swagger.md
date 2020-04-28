@@ -1,6 +1,6 @@
 ---
-id: security-endpoints
-title: Security service endpoints
+id: security-swagger
+title: Security service swagger
 ---
 
 ## How to communicate with Security service:
