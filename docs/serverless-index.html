@@ -73,8 +73,39 @@
 <span class="hljs-attr">DB_USERNAME</span>=postgres
 <span class="hljs-attr">DB_HOST</span>=localhost
 <span class="hljs-attr">DB_NAME</span>=app
+<span class="hljs-attr">DB_USE_SSL</span>=<span class="hljs-literal">false</span>
+<span class="hljs-attr">DB_CONNECTION_TIMEOUT_MILLIS</span>=<span class="hljs-number">3000</span>
 </code></pre>
 <p><code>DB_TYPE</code> - driver for database (tested on PostgreSQL)</p>
+<blockquote>
+<p>For AWS RDS databases, we need to configure RDS Proxy (to manage database connection pool)
+(<a href="https://aws.amazon.com/blogs/compute/using-amazon-rds-proxy-with-aws-lambda/">Instruction how create RDS proxy</a>)</p>
+</blockquote>
+<p>When RDS proxy is ready, we need to add VPC: security group ids and subnet ids to our function configuration in  serverless.yaml file for access to Proxy.</p>
+<p><img src="/rad-modules-docs/docs/assets/vpc_subnets.png" alt="alt text"></p>
+<pre><code class="hljs">functions:
+  ...
+  <span class="hljs-keyword">create</span>:
+    handler: lambdas/<span class="hljs-keyword">create</span>-file/handler.handle
+    vpc:
+      securityGroupIds:
+        - sg-a1642be1
+      subnetIds:
+        - subnet-<span class="hljs-number">37</span>e0d87f
+        - subnet-<span class="hljs-number">6</span>f553f35
+        - subnet-b19db4d7
+    events:
+      - http:
+          path: /upload
+          <span class="hljs-function"><span class="hljs-keyword">method</span>:</span> POST
+</code></pre>
+<p>And change database configuration, provide username and password which we gave in <code>secrets</code></p>
+<pre><code class="hljs"><span class="hljs-attribute">DB_PASSWORD</span>=secret_password
+<span class="hljs-attribute">DB_USERNAME</span>=secret_username
+<span class="hljs-attribute">DB_HOST</span>=RDS<span class="hljs-built_in"> Proxy </span>endpoint (filesdbproxy.proxy-cyhedaibvegb.eu-west-1.rds.amazonaws.com)
+<span class="hljs-attribute">DB_NAME</span>=app
+<span class="hljs-attribute">DB_USE_SSL</span>=<span class="hljs-literal">true</span>
+</code></pre>
 <p>After configuration you need to run database migrations:</p>
 <pre><code class="hljs"><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">run</span> <span class="hljs-selector-tag">knex</span><span class="hljs-selector-pseudo">:migrate</span><span class="hljs-selector-pseudo">:latest</span>
 </code></pre>
