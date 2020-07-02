@@ -185,25 +185,35 @@ networks:
 <li><p>Click green bar, then &quot;Try it out&quot; button</p></li>
 <li><p>Past sample request body with required data</p></li>
 </ol>
-<pre><code class="hljs css language-javascript"> [
-  {
-    <span class="hljs-string">"sender"</span>: {
-      <span class="hljs-string">"name"</span>: <span class="hljs-string">"example"</span>,
-      <span class="hljs-string">"email"</span>: <span class="hljs-string">"example@example.com"</span>
-    },
-    <span class="hljs-string">"recipient"</span>: {
-      <span class="hljs-string">"to"</span>: [
-        <span class="hljs-string">"example@example.com"</span>
+<pre><code class="hljs css language-javascript">{
+  <span class="hljs-string">"emails"</span>: [
+    {
+      <span class="hljs-string">"sender"</span>: {
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"Administrator"</span>,
+        <span class="hljs-string">"email"</span>: <span class="hljs-string">"admin@example.com"</span>
+      },
+      <span class="hljs-string">"recipient"</span>: {
+        <span class="hljs-string">"to"</span>: [
+          <span class="hljs-string">"example@example.com"</span>
+        ]
+      },
+      <span class="hljs-string">"template"</span>: {
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"registration"</span>,
+        <span class="hljs-string">"parameters"</span>: {
+          <span class="hljs-string">"username"</span>: <span class="hljs-string">"example@example.com"</span>,
+          <span class="hljs-string">"password"</span>: <span class="hljs-string">"******"</span>
+        }
+      },
+      <span class="hljs-string">"attachments"</span>: [
+        {
+          <span class="hljs-string">"fileName"</span>: <span class="hljs-string">"some-empty-file.txt"</span>,
+          <span class="hljs-string">"content"</span>: <span class="hljs-string">"IA=="</span>
+        }
       ]
-    },
-    <span class="hljs-string">"template"</span>: {
-      <span class="hljs-string">"id"</span>: <span class="hljs-string">"hello-word"</span>,
-      <span class="hljs-string">"parameters"</span>: {
-        <span class="hljs-string">"username"</span>: <span class="hljs-string">"John Doe"</span>
-      }
     }
-  }
-]
+  ],
+  <span class="hljs-string">"priority"</span>: <span class="hljs-string">"urgent"</span>
+}
 </code></pre>
 <ol start="3">
 <li><p>Click &quot;Execute&quot; button</p></li>

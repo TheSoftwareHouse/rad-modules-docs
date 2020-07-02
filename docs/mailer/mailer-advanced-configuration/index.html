@@ -122,6 +122,16 @@ COPY templates <span class="hljs-regexp">/app/</span>services<span class="hljs-r
 <li><strong><em>Description</em></strong>: The variable specifies the auth key of the SendGrid account if you would like to use it instead of using a local SMTP server.</li>
 <li><strong><em>Default</em></strong>:<code>&quot;&quot;</code></li>
 </ul>
+<p>BATCH_SIZE</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies the maximum batch size of consuming emails to send from a queue.</li>
+<li><strong><em>Default</em></strong>:<code>1000</code></li>
+</ul>
+<p>BATCH_PERIOD</p>
+<ul>
+<li><strong><em>Description</em></strong>: The variable specifies a delay between send batch emails. Default is 900s (15min)</li>
+<li><strong><em>Default</em></strong>:<code>900</code></li>
+</ul>
 <p>LOG_LEVEL</p>
 <ul>
 <li><strong><em>Description</em></strong>: The variable specifies the level of logging logs by the logger available options: <code>&quot;error&quot;</code>, <code>&quot;warn&quot;</code>, <code>&quot;help&quot;</code>, <code>&quot;info&quot;</code>, <code>&quot;debug&quot;</code>, <code>&quot;verbose&quot;</code>, <code>&quot;silly&quot;</code></li>
