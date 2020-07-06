@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Bitbucket pipelines · RAD Modules</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Configure Bitbucket Pipeline to deploy function"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Bitbucket pipelines · RAD Modules"/><meta property="og:type" content="website"/><meta property="og:url" content="https://thesoftwarehouse.github.io/rad-modules-docs/"/><meta property="og:description" content="## Configure Bitbucket Pipeline to deploy function"/><meta property="og:image" content="https://thesoftwarehouse.github.io/rad-modules-docs/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/rad-modules-docs/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/rad-modules-docs/js/scrollSpy.js"></script><link rel="stylesheet" href="/rad-modules-docs/css/main.css"/><script src="/rad-modules-docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/rad-modules-docs/"><img class="logo" src="/rad-modules-docs/img/favicon.ico" alt="RAD Modules"/><h2 class="headerTitleWithLogo">RAD Modules</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a target="_self"></a></li><li class=""><a href="https://github.com/TheSoftwareHouse" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Serverless functions</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Documentation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/">Getting started</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Changelog</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/changelog">Details</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Security</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security/security-index">Introduction</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security/security-getting-started">Getting started</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security/security-api-documentation">Api documentation</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security/security-advanced-configuration">Advanced configuration</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/security/security-abac">Attribute-based access control</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Mailer</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/mailer/mailer-index">Introduction</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/mailer/mailer-getting-started">Getting started</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/mailer/mailer-api-documentation">Api documentation</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/mailer/mailer-advanced-configuration">Advanced configuration</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Notifications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/notifications/notifications-index">Notifications service</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/notifications/notifications-details">Details</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/notifications/notifications-api-documentation">Api documentation</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Serverless functions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/serverless/serverless-index">Details</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/serverless/serverless-create">Create file</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/serverless/serverless-files">Get files</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/serverless/serverless-delete">Delete file</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/serverless/serverless-resize">Resize images</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/serverless/serverless-watermark">Watermark</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/serverless/serverless-rad-is-authenticated">RAD is authenticated</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/rad-modules-docs/docs/serverless/serverless-pipeline">Bitbucket pipelines</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Scheduler</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/scheduler/scheduler-index">Introduction</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/scheduler/scheduler-getting-started">Getting started</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/scheduler/scheduler-api-documentation">Api documentation</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/scheduler/scheduler-advanced-configuration">Advanced configuration</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Pdf generator</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/pdf-generator/pdf-index">Introduction</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/pdf-generator/pdf-getting-started">Getting started</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/pdf-generator/pdf-api-documentation">Api documentation</a></li><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/pdf-generator/pdf-advanced-configuration">Advanced configuration</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Admin panel</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/admin-panel/admin-panel-index">Details</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Services communication</h3><ul class=""><li class="navListItem"><a class="navItem" href="/rad-modules-docs/docs/communication-between-services">Communication between services</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Bitbucket pipelines</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="configure-bitbucket-pipeline-to-deploy-function"></a><a href="#configure-bitbucket-pipeline-to-deploy-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configure Bitbucket Pipeline to deploy function</h2>
+<h2><a class="anchor" aria-hidden="true" id="environment-variables"></a><a href="#environment-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Environment variables</h2>
+<p>For each environment, we must define environment variables in deployment configuration.</p>
+<p><code>Bitbucket -&gt; Repository settings -&gt; Deployments</code></p>
+<p>And add new variables for AWS and STAGE:</p>
+<ul>
+<li>AWS_LAMBDA_KEY</li>
+<li>AWS_LAMBDA_SECRET</li>
+<li>AWS_STAGE</li>
+<li>your environments</li>
+</ul>
+<p><img src="/rad-modules-docs/docs/assets/deployment_environments.png" alt="environment variables"></p>
+<h1><a class="anchor" aria-hidden="true" id="pipeline-yaml"></a><a href="#pipeline-yaml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pipeline YAML</h1>
+<p>You need add additional <code>branches</code> and <code>custom</code> configuration to <code>bitbucket-pipelines.yml</code> file</p>
+<pre><code class="hljs">image: node:alpine
+definitions:
+  steps:
+    - <span class="hljs-keyword">step</span>: &amp;compile
+        name: Compile
+        caches:
+          - node
+        script:
+          - npm install
+          - npm <span class="hljs-builtin-name">run</span> lint
+          - npm <span class="hljs-builtin-name">run</span> tests
+    - <span class="hljs-keyword">step</span>: &amp;deploy
+        name: Deploy
+        trigger:<span class="hljs-built_in"> manual
+</span>        caches:
+          - node
+        script:
+          - npm install
+          - ./node_modules/.bin/serverless<span class="hljs-built_in"> config </span>credentials --stage <span class="hljs-variable">${AWS_STAGE}</span> --provider aws --key <span class="hljs-variable">${AWS_LAMBDA_KEY}</span> --secret <span class="hljs-variable">${AWS_LAMBDA_SECRET}</span>
+          - ./node_modules/.bin/serverless deploy --stage <span class="hljs-variable">${AWS_STAGE}</span>
+
+pipelines:
+  default:
+    - <span class="hljs-keyword">step</span>: <span class="hljs-number">*c</span>ompile
+  custom:
+    deploy-to-dev:
+      - <span class="hljs-keyword">step</span>: <span class="hljs-number">*c</span>ompile
+      - <span class="hljs-keyword">step</span>:
+          &lt;&lt;: <span class="hljs-number">*de</span>ploy
+          deployment: dev
+          name: Deploy <span class="hljs-keyword">to</span> DEV
+
+  branches:
+    master:
+      - <span class="hljs-keyword">step</span>: <span class="hljs-number">*c</span>ompile
+      - <span class="hljs-keyword">step</span>:
+          &lt;&lt;: <span class="hljs-number">*de</span>ploy
+          deployment: production
+    develop:
+      - <span class="hljs-keyword">step</span>: <span class="hljs-number">*c</span>ompile
+      - <span class="hljs-keyword">step</span>:
+          &lt;&lt;: <span class="hljs-number">*de</span>ploy
+          deployment: dev
+</code></pre>
+<p>For branches we defined two steps:</p>
+<ul>
+<li>first step for build you app (*compile definition)</li>
+<li>second step for deploy your app to AWS (*deploy definition, manually, start only if first step will be ok and also you must run it).</li>
+</ul>
+<p><img src="/rad-modules-docs/docs/assets/bitbucket_run.png" alt="run manually"></p>
+<p>When you click <code>run</code> you see confirmation of deployment with changes that will be deployed.</p>
+<p><img src="/rad-modules-docs/docs/assets/bitbucket_deploy.png" alt="run manually"></p>
+<p>Also you can run <code>custom</code> deploy for every branch in your repository:</p>
+<p><img src="/rad-modules-docs/docs/assets/run_for_branch.png" alt="environment variables"></p>
+<p>And select custom deployment to dev:</p>
+<p><img src="/rad-modules-docs/docs/assets/custom.png" alt="environment variables"></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rad-modules-docs/docs/serverless/serverless-rad-is-authenticated"><span class="arrow-prev">← </span><span>RAD is authenticated</span></a><a class="docs-next button" href="/rad-modules-docs/docs/scheduler/scheduler-index"><span>Introduction</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#configure-bitbucket-pipeline-to-deploy-function">Configure Bitbucket Pipeline to deploy function</a></li><li><a href="#environment-variables">Environment variables</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/rad-modules-docs/" class="nav-home"><img src="/rad-modules-docs/img/favicon.ico" alt="RAD Modules" width="66" height="58"/></a><div><h5>Docs</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/">Getting started</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/changelog">Changelog</a><a href="https://thesoftwarehouse.github.io/rad-modules-api-docs/">RAD Modules API Doc</a></div><div><h5>Services</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/security-index">Security</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/mailer-index">Mailer</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/notifications-index">Notifications</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/serverless-index">Serverless functions</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/scheduler-index">Scheduler</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/pdf-index">Pdf generator</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/rad-admin-panel-index">Admin panel</a></div><div><h5>Support:</h5><a href="https://github.com/TheSoftwareHouse/rad-modules-docs">GitHub</a><a href="mailto:hello@tsh.io">hello@tsh.io</a></div></section><section class="copyright">Copyright © 2020 The Software House</section></footer></div></body></html>
