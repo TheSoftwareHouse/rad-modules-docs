@@ -112,7 +112,17 @@ services:
     ports:
       - <span class="hljs-number">50070</span>:<span class="hljs-number">50050</span>
     depends_on:
+      - postgres
       - redis
+    networks:
+      - app
+
+  postgres:
+    image: postgres:<span class="hljs-number">10</span>-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USERNAME: postgres
+      POSTGRES_DB: scheduler
     networks:
       - app
 
@@ -275,12 +285,104 @@ app.listen(port, () =&gt; <span class="hljs-built_in">console</span>.log(<span c
 <pre><code class="hljs css language-text"> POST: localhost:30003/api/schedule-job
  Body:
  {
+    "name": "test-job-name",
     "action": "test-scheduler",
     "service": "api",
-    "cron": "*/1 * * * *"
+    "jobOptions":{
+      "cron": "*/1 * * * *"
+    }
  }
 </code></pre>
 <p>After that you should see TEST-SCHEDULER every minute in your console.</p>
+<blockquote>
+<p>Note: <code>jobOptions</code> object allow configuring more complex behavior of our job all options are below (options object is optional)</p>
+</blockquote>
+<pre><code class="hljs css language-text"> {
+    priority: // type: number,Optional priority value. ranges from 1 (highest priority) to MAX_INT  (lowest priority). Note that using priorities has a slight impact on performance, so do not use it if not required.
+    delay: // type: number, An amount of milliseconds to wait until this job can be processed. Note that for accurate delays, both server and clients should have their synchronized.
+    attempts: // type: number, The total number of attempts to try the job until it completes.
+    cron: // type: string, Repeat job according to a cron specification.
+    cronStartDate: // type: datetime string, Start date when the repeat job should start repeating.
+    cronEndDate: // type: datetime string, End date when the repeat job should stop repeating.
+    cronTimeZone: // type: string, Cron Timezone.
+    cronLimit: // type: number, Number of times the job should repeat at max.
+    backoff: // type: number, Setting for automatic retries if the job fails.
+    lifo: // type: boolean, If true, adds the job to the right of the queue instead of the left.
+    timeout: // type: number, The number of milliseconds after which the job should be fail with a timeout error.
+    removeOnComplete: // type: boolean, If true, removes the job when it successfully completes.
+    removeOnFail: // type: boolean, If true, removes the job when it fails after all attempts..
+    stackTraceLimit: // type: number, Limits the amount of stack trace lines that will be recorded in the stacktrace.
+ }
+</code></pre>
+<blockquote>
+<p>Important! Ensure time on the Redis server and, the scheduler host is the same. If the Redis current DateTime is 2020-07-10 11:00:00 and the current time in the scheduler is 2020-07-10 13:00:00 and, you will schedule the  &quot;cron&quot; job to start at 2020-07-10 14:30:00. You could think the job will start in 1,5 hour time but it will start in 3,5 hour time because Redis server time is set back by two hours.</p>
+</blockquote>
 <h2><a class="anchor" aria-hidden="true" id="how-to-cancel-scheduled-job"></a><a href="#how-to-cancel-scheduled-job" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to cancel scheduled job?</h2>
-<p>Coming soon.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rad-modules-docs/docs/scheduler/scheduler-index"><span class="arrow-prev">← </span><span>Introduction</span></a><a class="docs-next button" href="/rad-modules-docs/docs/scheduler/scheduler-api-documentation"><span>Api documentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#scheduler-step-by-step">Scheduler step by step</a></li><li><a href="#how-to-cancel-scheduled-job">How to cancel scheduled job?</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/rad-modules-docs/" class="nav-home"><img src="/rad-modules-docs/img/favicon.ico" alt="RAD Modules" width="66" height="58"/></a><div><h5>Docs</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/">Getting started</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/changelog">Changelog</a><a href="https://thesoftwarehouse.github.io/rad-modules-api-docs/">RAD Modules API Doc</a></div><div><h5>Services</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/security-index">Security</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/mailer-index">Mailer</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/notifications-index">Notifications</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/serverless-index">Serverless functions</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/scheduler-index">Scheduler</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/pdf-index">Pdf generator</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/rad-admin-panel-index">Admin panel</a></div><div><h5>Support:</h5><a href="https://github.com/TheSoftwareHouse/rad-modules-docs">GitHub</a><a href="mailto:hello@tsh.io">hello@tsh.io</a></div></section><section class="copyright">Copyright © 2020 The Software House</section></footer></div></body></html>
+<p>If you create a repeatable job, you can cancel it by sending a DELETE request to  the URL with jobId query parameter:</p>
+<pre><code class="hljs css language-text">http://scheduler/api/scheduling/cancel-job?jobId=66cbd118-0382-447d-ab6f-54067eca0e2a
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="how-to-create-disposable-job"></a><a href="#how-to-create-disposable-job" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to create disposable job?</h2>
+<p>If you create job and don't set the 'cron' property in the 'jobOptions' object the job will be called once.</p>
+<h2><a class="anchor" aria-hidden="true" id="how-to-create-a-repeatable-job-which-will-start-in-the-future"></a><a href="#how-to-create-a-repeatable-job-which-will-start-in-the-future" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to create a repeatable job which will start in the future?</h2>
+<p>If you want to create repeatable job which will start in the future, you need to use <code>cronStartDate</code> property in <code>jobOptions</code> object example request should look like:</p>
+<pre><code class="hljs css language-text"> POST: http://scheduler/api/scheduling/schedule-job
+ Body:
+ {
+    "name": "test-job-name",
+    "action": "test-scheduler",
+    "service": "api",
+    "jobOptions":{
+      "cron": "*/1 * * * *",
+      "cronStartDate": "2020-07-10 13:17:00"
+    }
+ }
+</code></pre>
+<blockquote>
+<p>Note: Ensure scheduler host time is the same as Redis server time.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="how-to-create-a-repeatable-job-which-will-start-in-the-future-and-will-finish-in-some-time"></a><a href="#how-to-create-a-repeatable-job-which-will-start-in-the-future-and-will-finish-in-some-time" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to create a repeatable job which will start in the future and will finish in some time?</h2>
+<p>If you want to create repeatable job which will start in the future and will finish in some time, you need to use <code>cronStartDate</code> and <code>cronEndDate</code> property in <code>jobOptions</code> object example request should look like:</p>
+<pre><code class="hljs css language-text"> POST: http://scheduler/api/scheduling/schedule-job
+ Body:
+ {
+    "name": "test-job-name",
+    "action": "test-scheduler",
+    "service": "api",
+    "jobOptions":{
+      "cron": "*/1 * * * *",
+      "cronStartDate": "2020-07-10 13:17:00",
+      "cronEndDate": "2020-08-01 10:10:00"
+    }
+ }
+</code></pre>
+<blockquote>
+<p>Note: Ensure scheduler host time is the same as Redis server time.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="how-to-create-a-repeatable-job-which-will-repeat-x-times"></a><a href="#how-to-create-a-repeatable-job-which-will-repeat-x-times" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to create a repeatable job which will repeat <code>X</code> times?</h2>
+<p>If you want to create a repeatable job which will, for example, repeat 5 times, you need to use <code>cronLimit</code> property in <code>jobOptions</code> object example request should look like:</p>
+<pre><code class="hljs css language-text"> POST: http://scheduler/api/scheduling/schedule-job
+ Body:
+ {
+    "name": "test-job-name",
+    "action": "test-scheduler",
+    "service": "api",
+    "jobOptions":{
+      "cron": "*/1 * * * *",
+      "cronLimit": 5      
+    }
+ }
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="how-to-create-a-disposable-job-which-will-start-in-the-future"></a><a href="#how-to-create-a-disposable-job-which-will-start-in-the-future" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to create a disposable job which will start in the future?</h2>
+<p>If you want to create a disposable job which will start in 2 hours (120000 - Milliseconds), you need to use <code>delay</code> property in <code>jobOptions</code> object example request should look like:</p>
+<pre><code class="hljs css language-text"> POST: http://scheduler/api/scheduling/schedule-job
+ Body:
+ {
+    "name": "test-job-name",
+    "action": "test-scheduler",
+    "service": "api",
+    "jobOptions":{      
+      "delay": 120000
+    }
+ }
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rad-modules-docs/docs/scheduler/scheduler-index"><span class="arrow-prev">← </span><span>Introduction</span></a><a class="docs-next button" href="/rad-modules-docs/docs/scheduler/scheduler-api-documentation"><span>Api documentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#scheduler-step-by-step">Scheduler step by step</a></li><li><a href="#how-to-cancel-scheduled-job">How to cancel scheduled job?</a></li><li><a href="#how-to-create-disposable-job">How to create disposable job?</a></li><li><a href="#how-to-create-a-repeatable-job-which-will-start-in-the-future">How to create a repeatable job which will start in the future?</a></li><li><a href="#how-to-create-a-repeatable-job-which-will-start-in-the-future-and-will-finish-in-some-time">How to create a repeatable job which will start in the future and will finish in some time?</a></li><li><a href="#how-to-create-a-repeatable-job-which-will-repeat-x-times">How to create a repeatable job which will repeat <code>X</code> times?</a></li><li><a href="#how-to-create-a-disposable-job-which-will-start-in-the-future">How to create a disposable job which will start in the future?</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/rad-modules-docs/" class="nav-home"><img src="/rad-modules-docs/img/favicon.ico" alt="RAD Modules" width="66" height="58"/></a><div><h5>Docs</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/">Getting started</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/changelog">Changelog</a><a href="https://thesoftwarehouse.github.io/rad-modules-api-docs/">RAD Modules API Doc</a></div><div><h5>Services</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/security-index">Security</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/mailer-index">Mailer</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/notifications-index">Notifications</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/serverless-index">Serverless functions</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/scheduler-index">Scheduler</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/pdf-index">Pdf generator</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/rad-admin-panel-index">Admin panel</a></div><div><h5>Support:</h5><a href="https://github.com/TheSoftwareHouse/rad-modules-docs">GitHub</a><a href="mailto:hello@tsh.io">hello@tsh.io</a></div></section><section class="copyright">Copyright © 2020 The Software House</section></footer></div></body></html>
