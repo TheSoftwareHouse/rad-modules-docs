@@ -297,6 +297,101 @@ p Hi #{<span class="hljs-type">name</span>}, go <span class="hljs-keyword">to</s
 <span class="hljs-keyword">COPY</span> templates /app/services/<span class="hljs-keyword">security</span>/src/utils/mailer/templates
 <span class="hljs-keyword">COPY</span> init-data-volume /app/services/<span class="hljs-keyword">security</span>/init-data-volume
 </code></pre>
+<h2><a class="anchor" aria-hidden="true" id="notification-about-changes-in-policies-and-users"></a><a href="#notification-about-changes-in-policies-and-users" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Notification about changes in policies and users</h2>
+<p>Each time the policy is added or removed you can be informed about it. Also changes in users (adding/removing attributes, adding/removing users, changing activation state of the user) triggers notification.
+The payload of notification is object implementing <code>Event</code> interface (defined in <code>shared/event-dispatcher/index.ts</code>).
+Curently the module can emit the following events:</p>
+<ul>
+<li>PolicyAddedEvent:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">class</span> <span class="hljs-selector-tag">PolicyAddedEvent</span> {
+  <span class="hljs-attribute">name</span>: string;
+  <span class="hljs-attribute">payload</span>: PolicyEventPayload;
+}
+</code></pre>
+<ul>
+<li>PolicyRemovedEvent:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">class</span> <span class="hljs-selector-tag">PolicyRemovedEvent</span> {
+  <span class="hljs-attribute">name</span>: string;
+  <span class="hljs-attribute">payload</span>: PolicyEventPayload[];
+}
+</code></pre>
+<ul>
+<li>UserAddedEvent:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">class</span> <span class="hljs-selector-tag">UserAddedEvent</span>  {
+  <span class="hljs-attribute">name</span>: string;
+  <span class="hljs-attribute">payload</span>: UserEventPayload;
+}
+</code></pre>
+<ul>
+<li>UserRemovedEvent:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">class</span> <span class="hljs-selector-tag">UserRemovedEvent</span>  {
+  <span class="hljs-attribute">name</span>: string;
+  <span class="hljs-attribute">payload</span>: UserEventPayload;
+}
+</code></pre>
+<ul>
+<li>UserActivatedEvent:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">class</span> <span class="hljs-selector-tag">UserActivatedEvent</span>  {
+  <span class="hljs-attribute">name</span>: string;
+  <span class="hljs-attribute">payload</span>: UserEventPayload;
+}
+</code></pre>
+<ul>
+<li>UserDeactivatedEvent:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">class</span> <span class="hljs-selector-tag">UserDeactivatedEvent</span>  {
+  <span class="hljs-attribute">name</span>: string;
+  <span class="hljs-attribute">payload</span>: UserEventPayload;
+}
+</code></pre>
+<ul>
+<li>UserAttributeAddedEvent</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">class</span> <span class="hljs-selector-tag">UserAttributeAddedEvent</span>  {
+  <span class="hljs-attribute">name</span>: string;
+  <span class="hljs-attribute">payload</span>: UserEventPayload;
+}
+</code></pre>
+<ul>
+<li>UserAttributeRemovedEvent</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">class</span> <span class="hljs-selector-tag">UserAttributeRemovedEvent</span>  {
+  <span class="hljs-attribute">name</span>: string;
+  <span class="hljs-attribute">payload</span>: UserEventPayload;
+}
+</code></pre>
+<p>The types of payload are defines as:</p>
+<ul>
+<li>PolicyEventPayload:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">interface</span> <span class="hljs-selector-tag">PolicyEventPayload</span> {
+  <span class="hljs-attribute">id</span>: string;
+  <span class="hljs-attribute">attribute</span>: string;
+  <span class="hljs-attribute">resource</span>: string;
+}
+</code></pre>
+<ul>
+<li>UserEventPayload:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">interface</span> <span class="hljs-selector-tag">UserEventPayload</span> {
+  <span class="hljs-attribute">userId</span>: string;
+  <span class="hljs-attribute">attributes</span>: UserEventAttributePayload[];
+}
+</code></pre>
+<ul>
+<li>UserEventAttributePayload:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-selector-tag">interface</span> <span class="hljs-selector-tag">UserEventAttributePayload</span> {
+  <span class="hljs-attribute">id</span>: string;
+  <span class="hljs-attribute">name</span>: string;
+}
+</code></pre>
+<p>You can configure callback URLs (one or more) of the notification by setting environment variable <code>EVENT_DISPATCHER_CALLBACK_URLS</code>. By default this variable is empty so no notifications are sent.</p>
 <h2><a class="anchor" aria-hidden="true" id="configuration-setting-that-you-can-overwrite-via-environment-variables"></a><a href="#configuration-setting-that-you-can-overwrite-via-environment-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuration setting that you can overwrite via environment variables</h2>
 <p>API_URL:</p>
 <ul>
@@ -727,4 +822,9 @@ p Hi #{<span class="hljs-type">name</span>}, go <span class="hljs-keyword">to</s
 <li><strong><em>Description</em></strong>: Keycloak OpenID client ID</li>
 <li><strong><em>Default</em></strong>: <code>&quot;6c3465b1-2674-4704-a940-c41194dbd95&quot;</code></li>
 </ul>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rad-modules-docs/docs/security/security-keycloak-integration"><span class="arrow-prev">← </span><span>Keycloak integration</span></a><a class="docs-next button" href="/rad-modules-docs/docs/security/security-abac"><span>Attribute-based access control</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#how-to-download-security-service">How to download Security service:</a></li><li><a href="#how-to-set-up-security-service-in-your-docker-compose-file">How to set up Security service in your docker-compose file:</a></li><li><a href="#social-login">Social login</a><ul class="toc-headings"><li><a href="#google-auth">Google Auth</a></li><li><a href="#facebook-auth">Facebook Auth</a></li><li><a href="#microsoft-azure-auth">Microsoft Azure Auth</a></li></ul></li><li><a href="#multiple-providers">Multiple providers</a></li><li><a href="#mailer-configuration">Mailer configuration</a></li><li><a href="#default-templates">Default templates</a><ul class="toc-headings"><li><a href="#create-user">Create user</a></li><li><a href="#reset-password">Reset password</a></li><li><a href="#reset-password-token">Reset password token</a></li></ul></li><li><a href="#production-usage">Production usage</a></li><li><a href="#configuration-setting-that-you-can-overwrite-via-environment-variables">Configuration setting that you can overwrite via environment variables</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/rad-modules-docs/" class="nav-home"><img src="/rad-modules-docs/img/favicon.ico" alt="RAD Modules" width="66" height="58"/></a><div><h5>Docs</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/">Getting started</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/changelog">Changelog</a><a href="https://thesoftwarehouse.github.io/rad-modules-api-docs/">RAD Modules API Doc</a></div><div><h5>Services</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/security-index">Security</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/mailer-index">Mailer</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/notifications-index">Notifications</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/serverless-index">Serverless functions</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/scheduler-index">Scheduler</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/pdf-index">Pdf generator</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/rad-admin-panel-index">Admin panel</a></div><div><h5>Support:</h5><a href="https://github.com/TheSoftwareHouse">GitHub</a><a href="mailto:hello@tsh.io">hello@tsh.io</a></div></section><section class="copyright">Copyright © 2020 The Software House</section></footer></div></body></html>
+<p>EVENT_DISPATCHER_CALLBACK_URLS</p>
+<ul>
+<li><strong><em>Description</em></strong>: Callback URLs of notifications that are sent after changes in policies and users, comma separated.</li>
+<li><strong><em>Default</em></strong>: <code>&quot;&quot;</code></li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rad-modules-docs/docs/security/security-keycloak-integration"><span class="arrow-prev">← </span><span>Keycloak integration</span></a><a class="docs-next button" href="/rad-modules-docs/docs/security/security-abac"><span>Attribute-based access control</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#how-to-download-security-service">How to download Security service:</a></li><li><a href="#how-to-set-up-security-service-in-your-docker-compose-file">How to set up Security service in your docker-compose file:</a></li><li><a href="#social-login">Social login</a><ul class="toc-headings"><li><a href="#google-auth">Google Auth</a></li><li><a href="#facebook-auth">Facebook Auth</a></li><li><a href="#microsoft-azure-auth">Microsoft Azure Auth</a></li></ul></li><li><a href="#multiple-providers">Multiple providers</a></li><li><a href="#mailer-configuration">Mailer configuration</a></li><li><a href="#default-templates">Default templates</a><ul class="toc-headings"><li><a href="#create-user">Create user</a></li><li><a href="#reset-password">Reset password</a></li><li><a href="#reset-password-token">Reset password token</a></li></ul></li><li><a href="#production-usage">Production usage</a></li><li><a href="#notification-about-changes-in-policies-and-users">Notification about changes in policies and users</a></li><li><a href="#configuration-setting-that-you-can-overwrite-via-environment-variables">Configuration setting that you can overwrite via environment variables</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/rad-modules-docs/" class="nav-home"><img src="/rad-modules-docs/img/favicon.ico" alt="RAD Modules" width="66" height="58"/></a><div><h5>Docs</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/">Getting started</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/changelog">Changelog</a><a href="https://thesoftwarehouse.github.io/rad-modules-api-docs/">RAD Modules API Doc</a></div><div><h5>Services</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/security-index">Security</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/mailer-index">Mailer</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/notifications-index">Notifications</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/serverless-index">Serverless functions</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/scheduler-index">Scheduler</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/pdf-index">Pdf generator</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/rad-admin-panel-index">Admin panel</a></div><div><h5>Support:</h5><a href="https://github.com/TheSoftwareHouse">GitHub</a><a href="mailto:hello@tsh.io">hello@tsh.io</a></div></section><section class="copyright">Copyright © 2020 The Software House</section></footer></div></body></html>
