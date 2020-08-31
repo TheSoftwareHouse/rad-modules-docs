@@ -106,8 +106,6 @@ services:
     image: tshio/scheduler:latest
     working_dir: /app/build/services/scheduler
     command: <span class="hljs-string">"api"</span>
-    volumes:
-      - ./cron/manifest.json:/app/build/services/scheduler/src/config/external-manifest.json
     hostname: scheduler
     ports:
       - <span class="hljs-number">50070</span>:<span class="hljs-number">50050</span>
@@ -240,57 +238,24 @@ app.listen(port, () =&gt; <span class="hljs-built_in">console</span>.log(<span c
 <span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">"npm"</span>, <span class="hljs-string">"run"</span>, <span class="hljs-string">"watch"</span>]</span>
 </code></pre>
 <ol start="8">
-<li>Go to workspace root and create <code>cron</code> catalog and <code>manifest.json</code> file in it.</li>
-</ol>
-<pre><code class="hljs css language-text"> mkdir cron && cd cron
-</code></pre>
-<pre><code class="hljs css language-text"> touch manifest.json
-</code></pre>
-<ol start="9">
-<li>In the manifest file, we will put information about actions that the scheduler can call:</li>
-</ol>
-<ul>
-<li><code>name</code> prop describe the name of service with should be called by the scheduler service,</li>
-<li><code>url</code> describes where the service with should be called is host,</li>
-<li><code>actions</code> describe with actions can be called in the service.</li>
-<li><code>type</code> the action that name.</li>
-</ul>
-<p>So sample manifest.json file should look like e.g.</p>
-<pre><code class="hljs css language-javascript"> [
-  {
-    <span class="hljs-string">"url"</span>: <span class="hljs-string">"http://api:30003"</span>,
-    <span class="hljs-string">"name"</span>: <span class="hljs-string">"api"</span>,
-    <span class="hljs-string">"actions"</span>: [
-      {
-        <span class="hljs-string">"type"</span>: <span class="hljs-string">"test-scheduler"</span>,
-        <span class="hljs-string">"http"</span>: {
-          <span class="hljs-string">"uri"</span>: <span class="hljs-string">"api/test-scheduler"</span>,
-          <span class="hljs-string">"method"</span>: <span class="hljs-string">"POST"</span>
-        }
-      }
-    ]
-  }
-]
-</code></pre>
-<ol start="10">
-<li><p>Project structure should look like bellow:
-<img src="/rad-modules-docs/docs/assets/scheduler/project-structure.png" alt="project-structure"></p></li>
-<li><p>Run docker-compose:</p></li>
+<li>Run docker-compose:</li>
 </ol>
 <pre><code class="hljs css language-text"> docker-compose up
 </code></pre>
-<ol start="12">
+<ol start="9">
 <li>Now, if everything is running, we can schedule a job. In our app, I created an endpoint with will display TEST-SCHEDULER in the console. So if we want the scheduler will call that endpoint every minute we need to create job by requesting scheduler API (we can use swagger endpoint or use our endpoint in the app I will use our endpoint). Request the endpoint with tool you like.</li>
 </ol>
 <pre><code class="hljs css language-text"> POST: http://localhost:30003/api/schedule-job
  Body:
  {
-    "name": "test-job-name",
-    "action": "test-scheduler",
-    "service": "api",
-    "jobOptions":{
-      "cron": "*/1 * * * *"
-    }
+     "name": "test-job-name",
+     "type": "http",
+     "payload": {
+        "url":"http://example.com",
+     },
+     "jobOptions":{
+         "cron": "*/1 * * * *"
+     }
  }
 </code></pre>
 <p>After that you should see TEST-SCHEDULER every minute in your console.</p>
@@ -328,13 +293,15 @@ app.listen(port, () =&gt; <span class="hljs-built_in">console</span>.log(<span c
 <pre><code class="hljs css language-text"> POST: http://scheduler/api/scheduling/schedule-job
  Body:
  {
-    "name": "test-job-name",
-    "action": "test-scheduler",
-    "service": "api",
-    "jobOptions":{
-      "cron": "*/1 * * * *",
-      "cronStartDate": "2020-07-10 13:17:00"
-    }
+     "name": "test-job-name",
+     "type": "http",
+     "payload": {
+        "url":"http://example.com",
+     },
+     "jobOptions":{
+         "cron": "*/1 * * * *",
+         "cronStartDate": "2020-07-10 13:17:00"
+     }
  }
 </code></pre>
 <blockquote>
@@ -345,14 +312,16 @@ app.listen(port, () =&gt; <span class="hljs-built_in">console</span>.log(<span c
 <pre><code class="hljs css language-text"> POST: http://scheduler/api/scheduling/schedule-job
  Body:
  {
-    "name": "test-job-name",
-    "action": "test-scheduler",
-    "service": "api",
-    "jobOptions":{
-      "cron": "*/1 * * * *",
-      "cronStartDate": "2020-07-10 13:17:00",
-      "cronEndDate": "2020-08-01 10:10:00"
-    }
+     "name": "test-job-name",
+     "type": "http",
+     "payload": {
+         "url":"http://example.com",
+     },
+     "jobOptions":{
+         "cron": "*/1 * * * *",
+         "cronStartDate": "2020-07-10 13:17:00",
+         "cronEndDate": "2020-08-01 10:10:00"
+     }
  }
 </code></pre>
 <blockquote>
@@ -363,13 +332,15 @@ app.listen(port, () =&gt; <span class="hljs-built_in">console</span>.log(<span c
 <pre><code class="hljs css language-text"> POST: http://scheduler/api/scheduling/schedule-job
  Body:
  {
-    "name": "test-job-name",
-    "action": "test-scheduler",
-    "service": "api",
-    "jobOptions":{
-      "cron": "*/1 * * * *",
-      "cronLimit": 5      
-    }
+     "name": "test-job-name",
+     "type": "http",
+     "payload": {
+         "url":"http://example.com",
+     },
+     "jobOptions":{
+         "cron": "*/1 * * * *",
+         "cronLimit": 5      
+     }
  }
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="how-to-create-a-disposable-job-which-will-start-in-the-future"></a><a href="#how-to-create-a-disposable-job-which-will-start-in-the-future" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to create a disposable job which will start in the future?</h2>
@@ -377,12 +348,14 @@ app.listen(port, () =&gt; <span class="hljs-built_in">console</span>.log(<span c
 <pre><code class="hljs css language-text"> POST: http://scheduler/api/scheduling/schedule-job
  Body:
  {
-    "name": "test-job-name",
-    "action": "test-scheduler",
-    "service": "api",
-    "jobOptions":{      
-      "delay": 120000
-    }
+     "name": "test-job-name",
+     "type": "http",
+     "payload": {
+         "url":"http://example.com",
+     },
+     "jobOptions":{      
+         "delay": 120000
+     }
  }
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/rad-modules-docs/docs/scheduler/scheduler-index"><span class="arrow-prev">← </span><span>Introduction</span></a><a class="docs-next button" href="/rad-modules-docs/docs/scheduler/scheduler-api-documentation"><span>Api documentation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#scheduler-step-by-step">Scheduler step by step</a></li><li><a href="#how-to-cancel-scheduled-job">How to cancel scheduled job?</a></li><li><a href="#how-to-create-disposable-job">How to create disposable job?</a></li><li><a href="#how-to-create-a-repeatable-job-which-will-start-in-the-future">How to create a repeatable job which will start in the future?</a></li><li><a href="#how-to-create-a-repeatable-job-which-will-start-in-the-future-and-will-finish-in-some-time">How to create a repeatable job which will start in the future and will finish in some time?</a></li><li><a href="#how-to-create-a-repeatable-job-which-will-repeat-x-times">How to create a repeatable job which will repeat <code>X</code> times?</a></li><li><a href="#how-to-create-a-disposable-job-which-will-start-in-the-future">How to create a disposable job which will start in the future?</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/rad-modules-docs/" class="nav-home"><img src="/rad-modules-docs/img/favicon.ico" alt="RAD Modules" width="66" height="58"/></a><div><h5>Docs</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/">Getting started</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/changelog">Changelog</a><a href="https://thesoftwarehouse.github.io/rad-modules-api-docs/">RAD Modules API Doc</a></div><div><h5>Services</h5><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/security-index">Security</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/mailer-index">Mailer</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/notifications-index">Notifications</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/serverless-index">Serverless functions</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/scheduler-index">Scheduler</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/pdf-index">Pdf generator</a><a href="https://thesoftwarehouse.github.io/rad-modules-docs/docs/rad-admin-panel-index">Admin panel</a></div><div><h5>Support:</h5><a href="https://github.com/TheSoftwareHouse">GitHub</a><a href="mailto:hello@tsh.io">hello@tsh.io</a></div></section><section class="copyright">Copyright © 2020 The Software House</section></footer></div></body></html>
