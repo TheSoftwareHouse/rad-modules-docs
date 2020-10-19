@@ -126,9 +126,10 @@ services:
       - app
 
   security-panel:
-    image: tshio/rad-admin:<span class="hljs-number">0.0</span>.<span class="hljs-number">3</span>
+    image: tshio/rad-admin:<span class="hljs-number">0.0</span>.<span class="hljs-number">12</span>
     environment:
       REACT_APP_SECURITY_API_URL: <span class="hljs-string">"http://localhost:50050"</span>
+      REACT_APP_MODULES: security
     ports:
       - <span class="hljs-number">9000</span>:<span class="hljs-number">80</span>
     networks:
