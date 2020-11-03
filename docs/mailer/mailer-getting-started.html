@@ -171,6 +171,14 @@ services:
     ports:
       - <span class="hljs-number">1025</span>:<span class="hljs-number">1025</span>
       - <span class="hljs-number">8025</span>:<span class="hljs-number">8025</span>
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - <span class="hljs-number">6379</span>:<span class="hljs-number">6379</span>
+    networks:
+      - app
 networks:
   app:
 </code></pre>
